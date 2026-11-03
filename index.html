@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#12345a">
+<meta name="description" content="Sudan Med Hub - Medical learning and MCQs.">
+<link rel="manifest" href="./manifest.json">
+<title>Sudan Med Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#18324d}
+header{background:#12345a;color:white;text-align:center;padding:35px 15px}
+header h1{margin:0 0 8px}
+main{max-width:750px;margin:25px auto;padding:16px}
+.search{width:100%;padding:15px;border:1px solid #ccd6e2;border-radius:10px;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.card{background:white;padding:25px 12px;border-radius:12px;text-align:center;box-shadow:0 2px 12px #0000000d}
+.card h3{margin:10px 0 5px}
+.card p{font-size:13px;color:#64748b}
+footer{text-align:center;padding:25px;color:#64748b;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>Sudan Med Hub</h1>
+<p>Learn • Practice • Excel.</p>
+</header>
+<main>
+<input class="search" type="search" placeholder="Search medical topics...">
+<div class="grid">
+<div class="card"><div>📚</div><h3>Medicine</h3><p>Medical articles</p></div>
+<div class="card"><div>📝</div><h3>MCQs</h3><p>Test your knowledge</p></div>
+<div class="card"><div>🔬</div><h3>Research</h3><p>Research learning</p></div>
+<div class="card"><div>💡</div><h3>General Knowledge</h3><p>Explore science</p></div>
+</div>
+</main>
+<footer>Sudan Med Hub © 2026</footer>
+<script>
+if ("serviceWorker" in navigator) {
+window.addEventListener("load", () => {
+navigator.serviceWorker.register("./service-worker.js")
+.catch(console.error);
+});
+}
+</script>
+</body>
+</html>
