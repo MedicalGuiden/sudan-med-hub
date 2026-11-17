@@ -7,55 +7,56 @@
 <meta name="theme-color" content="#12345a">
 <meta name="description" content="Sudan Med Hub - Medical education, MCQs, research and knowledge.">
 <link rel="manifest" href="./manifest.json">
-<title>Sudan Med Hub</title>
+<title>Sudan Med Hub | Medical Learning</title>
 
 <style>
 *{box-sizing:border-box}
 body{
  margin:0;font-family:Arial,sans-serif;
- background:#f3f6fa;color:#18324d
+ background:#f3f6fa;color:#18324d;line-height:1.6
 }
 header{
- background:#12345a;color:white;
- text-align:center;padding:35px 15px
+ background:linear-gradient(135deg,#102b46,#087e83);
+ color:white;text-align:center;padding:35px 15px 28px
 }
-header h1{margin:0 0 8px}
-header p{color:#dbeafe}
-main{max-width:750px;margin:25px auto;padding:16px}
+header h1{margin:0 0 8px;font-size:29px}
+header p{color:#dbeafe;margin:0}
+main{max-width:850px;margin:25px auto;padding:16px}
 .search{
  width:100%;padding:15px;border:1px solid #ccd6e2;
- border-radius:10px;font-size:16px
+ border-radius:10px;font-size:16px;background:white
 }
 .grid{
  display:grid;grid-template-columns:1fr 1fr;
  gap:14px;margin-top:22px
 }
 .card{
- background:white;padding:25px 12px;
- border-radius:12px;text-align:center;
- box-shadow:0 2px 12px #0000000d;
+ background:white;padding:25px 12px;border-radius:12px;
+ text-align:center;box-shadow:0 2px 12px #0000000d;
  cursor:pointer;transition:.2s
 }
-.card:active{transform:scale(.97)}
+.card:hover{transform:translateY(-3px)}
 .card h3{margin:10px 0 5px}
-.card p{font-size:13px;color:#64748b}
+.card p{font-size:13px;color:#64748b;margin:0}
 .emoji{font-size:30px}
 .hidden{display:none!important}
-.back{
+.back,.primary-btn{
  background:#12345a;color:white;border:0;
- padding:11px 18px;border-radius:8px;
- font-size:15px;margin-bottom:18px;cursor:pointer
+ padding:12px 18px;border-radius:8px;
+ font-size:15px;cursor:pointer;text-decoration:none;
+ display:inline-block
 }
+.primary-btn{background:#087e83}
+.back{margin-bottom:18px}
 .post{
- background:white;padding:17px;
- border-radius:10px;margin:12px 0;
- box-shadow:0 2px 8px #0000000d
+ background:white;padding:17px;border-radius:10px;
+ margin:12px 0;box-shadow:0 2px 8px #0000000d
 }
 .post h3{margin:0 0 9px;font-size:16px}
 .post small{color:#64748b}
 .post a{
  display:inline-block;margin-top:12px;
- color:#12345a;text-decoration:none;font-weight:bold
+ color:#087e83;text-decoration:none;font-weight:bold
 }
 .status{text-align:center;padding:25px;color:#64748b}
 .section-title{margin-top:5px}
@@ -63,14 +64,40 @@ main{max-width:750px;margin:25px auto;padding:16px}
  display:inline-block;margin:5px 0 15px;
  color:#2563a5;text-decoration:none;font-size:14px
 }
+.promo{
+ margin-top:25px;padding:23px 17px;
+ border-radius:14px;
+ background:linear-gradient(135deg,#102b46,#087e83);
+ color:white;text-align:center
+}
+.promo h2{margin:0 0 8px}
+.promo p{color:#e0f2fe;font-size:14px}
+.promo a{
+ display:inline-block;background:white;color:#12345a;
+ padding:10px 18px;border-radius:8px;
+ text-decoration:none;font-weight:bold;margin-top:8px
+}
+.blog-strip{
+ background:white;padding:18px;border-radius:12px;
+ margin-top:18px;text-align:center;
+ border:1px solid #e2e8f0
+}
+.blog-strip a{
+ color:#087e83;font-weight:bold;text-decoration:none
+}
+.actions{
+ display:flex;justify-content:center;gap:10px;
+ flex-wrap:wrap;margin-top:16px
+}
 footer{
  text-align:center;padding:25px;color:#64748b;
  font-size:13px
 }
-footer a{color:#12345a;text-decoration:none}
+footer a{color:#12345a;text-decoration:none;font-weight:bold}
 @media(max-width:400px){
  .grid{gap:10px}
  .card{padding:20px 8px}
+ header h1{font-size:25px}
 }
 </style>
 </head>
@@ -80,15 +107,20 @@ footer a{color:#12345a;text-decoration:none}
 <header>
 <h1>Sudan Med Hub</h1>
 <p>Learn • Practice • Excel.</p>
+<div class="actions">
+<a class="primary-btn" href="https://sudanmedic.blogspot.com/" target="_blank" rel="noopener">
+Visit Medical Blog ↗
+</a>
+</div>
 </header>
 
 <main>
 
-<!-- HOME -->
 <section id="home">
 
 <input class="search" id="homeSearch"
-type="search" placeholder="Search medical topics...">
+type="search" placeholder="Search medical topics..."
+aria-label="Search medical topics">
 
 <div class="grid" id="categories">
 
@@ -117,15 +149,31 @@ type="search" placeholder="Search medical topics...">
 </div>
 
 </div>
+
+<div class="promo">
+<h2>Explore Our Medical Blog</h2>
+<p>Discover medical articles, clinical explanations,
+research resources and educational content.</p>
+<a href="https://sudanmedic.blogspot.com/" target="_blank" rel="noopener">
+Explore Sudan Med Hub Blog →
+</a>
+</div>
+
+<div class="blog-strip">
+<strong>Learn more. Understand better.</strong>
+<p>Visit our blog for detailed medical learning resources.</p>
+<a href="https://sudanmedic.blogspot.com/" target="_blank" rel="noopener">
+sudanmedic.blogspot.com ↗
+</a>
+</div>
+
 </section>
 
-<!-- CONTENT SECTION -->
 <section id="content" class="hidden">
 
 <button class="back" onclick="goHome()">← Back to Home</button>
 
 <h2 id="sectionTitle" class="section-title"></h2>
-
 <p id="sectionDescription"></p>
 
 <a id="archiveLink" class="archive"
@@ -136,9 +184,7 @@ Open all posts on Blogger →
 <input class="search" id="postSearch"
 type="search" placeholder="Search posts...">
 
-<div id="posts" class="status">
-Loading content...
-</div>
+<div id="posts" class="status">Loading content...</div>
 
 </section>
 
@@ -146,251 +192,220 @@ Loading content...
 
 <footer>
 <p>Sudan Med Hub © 2026</p>
+<p>
 <a href="https://sudanmedic.blogspot.com/" target="_blank" rel="noopener">
 Visit Our Medical Blog
 </a>
+</p>
+<p>Learn • Practice • Excel.</p>
 </footer>
 
 <script>
 
-// BLOGGER CONFIGURATION
 const BLOG = "https://sudanmedic.blogspot.com";
+const APP = "https://medicalguiden.github.io/sudan-med-hub/";
 
-// Categories and Blogger Labels
 const sections = {
-
 medicine:{
 label:"Medicine",
 title:"📚 Medicine",
 description:"Explore medical articles and clinical knowledge.",
-archive:"https://sudanmedic.blogspot.com/search/label/Medicine"
+archive:BLOG+"/search/label/Medicine"
 },
-
 mcqs:{
 label:"MCQs",
 title:"📝 Medical MCQs",
 description:"Practice medical questions and test your knowledge.",
-archive:"https://sudanmedic.blogspot.com/search/label/MCQs"
+archive:BLOG+"/search/label/MCQs"
 },
-
 research:{
 label:"Research",
 title:"🔬 Medical Research",
 description:"Explore medical research and scientific learning.",
-archive:"https://sudanmedic.blogspot.com/search/label/Research"
+archive:BLOG+"/search/label/Research"
 },
-
 general:{
 label:"General Knowledge",
 title:"💡 General Knowledge",
 description:"Explore science and general medical knowledge.",
-archive:"https://sudanmedic.blogspot.com/search/label/General%20Knowledge"
+archive:BLOG+"/search/label/General%20Knowledge"
 }
-
 };
 
-let currentSection = "";
-let cache = {};
-let requestNumber = 0;
+let currentSection="";
+let cache={};
+let requestNumber=0;
+let activeScript=null;
+let requestTimer=null;
 
-// NAVIGATION
 function openSection(section){
+ if(!sections[section])return;
 
-if(!sections[section]) return;
+ currentSection=section;
 
-currentSection = section;
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("content").classList.remove("hidden");
 
-document.getElementById("home").classList.add("hidden");
-document.getElementById("content").classList.remove("hidden");
+ const config=sections[section];
 
-const config = sections[section];
+ document.getElementById("sectionTitle").textContent=config.title;
+ document.getElementById("sectionDescription").textContent=config.description;
+ document.getElementById("archiveLink").href=config.archive;
+ document.getElementById("postSearch").value="";
 
-document.getElementById("sectionTitle").textContent = config.title;
-document.getElementById("sectionDescription").textContent = config.description;
-document.getElementById("archiveLink").href = config.archive;
+ if(cache[section]){
+  renderPosts(cache[section]);
+ }else{
+  loadPosts(section);
+ }
 
-document.getElementById("postSearch").value = "";
-
-if(cache[section]){
-renderPosts(cache[section]);
-}else{
-loadPosts(section);
-}
-
+ history.replaceState(null,"",APP+"?section="+section);
 }
 
 function goHome(){
-
-document.getElementById("content").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
-
-currentSection = "";
-
+ document.getElementById("content").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+ currentSection="";
+ history.replaceState(null,"",APP);
 }
 
-// LOAD BLOGGER FEED
 function loadPosts(section){
+ const output=document.getElementById("posts");
+ output.textContent="Loading posts...";
 
-const output = document.getElementById("posts");
-output.textContent = "Loading posts...";
+ if(activeScript)activeScript.remove();
+ if(requestTimer)clearTimeout(requestTimer);
 
-const config = sections[section];
-const callback = "bloggerCallback" + (++requestNumber);
+ const config=sections[section];
+ const callback="bloggerCallback"+(++requestNumber);
+ const script=document.createElement("script");
 
-const script = document.createElement("script");
+ let finished=false;
 
-const url =
-BLOG + "/feeds/posts/default/-/" +
-encodeURIComponent(config.label) +
-"?alt=json-in-script&max-results=50&callback=" +
-callback;
+ function cleanup(){
+  if(requestTimer)clearTimeout(requestTimer);
+  if(script.parentNode)script.remove();
+  delete window[callback];
+  if(activeScript===script)activeScript=null;
+ }
 
-let finished = false;
+ function fail(message){
+  if(finished)return;
+  finished=true;
+  cleanup();
+  if(currentSection===section){
+   output.textContent=message;
+  }
+ }
 
-function cleanup(){
-if(script.parentNode) script.remove();
-delete window[callback];
+ window[callback]=function(data){
+  if(finished)return;
+  finished=true;
+
+  const entries=data.feed&&data.feed.entry
+   ?data.feed.entry:[];
+
+  cache[section]=entries.map(entry=>{
+   const link=(entry.link||[]).find(
+    item=>item.rel==="alternate"
+   );
+   return{
+    title:entry.title?entry.title.$t:"Untitled",
+    date:entry.published?entry.published.$t:"",
+    url:link?link.href:BLOG
+   };
+  });
+
+  cleanup();
+
+  if(currentSection===section){
+   renderPosts(cache[section]);
+  }
+ };
+
+ script.onerror=function(){
+  fail("Unable to load posts. Check your internet connection or Blogger feed settings.");
+ };
+
+ const url=BLOG+"/feeds/posts/default/-/"+
+ encodeURIComponent(config.label)+
+ "?alt=json-in-script&max-results=50&callback="+callback;
+
+ activeScript=script;
+ script.src=url;
+ document.body.appendChild(script);
+
+ requestTimer=setTimeout(()=>{
+  fail("The request timed out. Please try again.");
+ },12000);
 }
 
-window[callback] = function(data){
-
-if(finished) return;
-finished = true;
-
-const entries = data.feed && data.feed.entry
-? data.feed.entry : [];
-
-cache[section] = entries.map(entry=>{
-
-const link = entry.link.find(
-item=>item.rel === "alternate"
-);
-
-return {
-title:entry.title.$t,
-date:entry.published.$t,
-url:link ? link.href : BLOG
-};
-
-});
-
-cleanup();
-
-if(currentSection === section){
-renderPosts(cache[section]);
-}
-
-};
-
-script.onerror = function(){
-
-if(finished) return;
-finished = true;
-cleanup();
-
-if(currentSection === section){
-output.textContent =
-"Unable to load posts. Please check your internet connection.";
-}
-
-};
-
-script.src = url;
-document.body.appendChild(script);
-
-}
-
-// DISPLAY POSTS
 function renderPosts(posts){
+ const output=document.getElementById("posts");
+ output.innerHTML="";
 
-const output = document.getElementById("posts");
+ if(!posts||posts.length===0){
+  output.textContent="No posts found in this category.";
+  return;
+ }
 
-output.innerHTML = "";
+ posts.forEach(post=>{
+  const item=document.createElement("div");
+  item.className="post";
 
-if(!posts || posts.length === 0){
+  const title=document.createElement("h3");
+  title.textContent=post.title;
 
-output.textContent =
-"No posts found in this category.";
+  const date=document.createElement("small");
+  date.textContent=post.date
+   ?"Published: "+new Date(post.date).toLocaleDateString()
+   :"";
 
-return;
+  const link=document.createElement("a");
+  link.href=post.url;
+  link.target="_blank";
+  link.rel="noopener";
+  link.textContent="Read More →";
 
+  item.append(title,date,document.createElement("br"),link);
+  output.appendChild(item);
+ });
 }
 
-posts.forEach(post=>{
-
-const item = document.createElement("div");
-item.className = "post";
-
-const title = document.createElement("h3");
-title.textContent = post.title;
-
-const date = document.createElement("small");
-date.textContent =
-"Published: " +
-new Date(post.date).toLocaleDateString();
-
-const link = document.createElement("a");
-link.href = post.url;
-link.target = "_blank";
-link.rel = "noopener";
-link.textContent = "Read More →";
-
-item.append(
-title,
-date,
-document.createElement("br"),
-link
-);
-
-output.appendChild(item);
-
-});
-
-}
-
-// SEARCH POSTS
 document.getElementById("postSearch")
 .addEventListener("input",function(){
+ const query=this.value.toLowerCase();
+ const posts=cache[currentSection]||[];
 
-const query = this.value.toLowerCase();
-
-const posts = cache[currentSection] || [];
-
-renderPosts(
-posts.filter(post=>
-post.title.toLowerCase().includes(query)
-)
-);
-
+ renderPosts(posts.filter(post=>
+  post.title.toLowerCase().includes(query)
+ ));
 });
 
-// HOME SEARCH
 document.getElementById("homeSearch")
 .addEventListener("input",function(){
+ const query=this.value.toLowerCase();
 
-const query = this.value.toLowerCase();
-
-document.querySelectorAll("#categories .card")
-.forEach(card=>{
-
-card.style.display =
-card.innerText.toLowerCase().includes(query)
-? "block" : "none";
-
+ document.querySelectorAll("#categories .card")
+ .forEach(card=>{
+  card.style.display=
+   card.innerText.toLowerCase().includes(query)
+   ?"block":"none";
+ });
 });
 
-});
+const params=new URLSearchParams(location.search);
+const requestedSection=params.get("section");
 
-// SERVICE WORKER
+if(requestedSection&&sections[requestedSection]){
+ openSection(requestedSection);
+}
+
 if("serviceWorker" in navigator){
-
-window.addEventListener("load",()=>{
-
-navigator.serviceWorker.register("./service-worker.js")
-.catch(error=>console.error("Service Worker:",error));
-
-});
-
+ window.addEventListener("load",()=>{
+  navigator.serviceWorker.register("./service-worker.js")
+  .catch(error=>console.error("Service Worker:",error));
+ });
 }
 
 </script>
