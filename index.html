@@ -5,60 +5,73 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#12345a">
-<meta name="description" content="Sudan Med Hub - Medical learning and MCQs.">
+<meta name="description" content="Sudan Med Hub - Medical education, MCQs, research and knowledge.">
 <link rel="manifest" href="./manifest.json">
 <title>Sudan Med Hub</title>
 
 <style>
 *{box-sizing:border-box}
 body{
-margin:0;font-family:Arial,sans-serif;
-background:#f3f6fa;color:#18324d
+ margin:0;font-family:Arial,sans-serif;
+ background:#f3f6fa;color:#18324d
 }
 header{
-background:#12345a;color:white;
-text-align:center;padding:35px 15px
+ background:#12345a;color:white;
+ text-align:center;padding:35px 15px
 }
 header h1{margin:0 0 8px}
+header p{color:#dbeafe}
 main{max-width:750px;margin:25px auto;padding:16px}
 .search{
-width:100%;padding:15px;
-border:1px solid #ccd6e2;
-border-radius:10px;font-size:16px
+ width:100%;padding:15px;border:1px solid #ccd6e2;
+ border-radius:10px;font-size:16px
 }
 .grid{
-display:grid;grid-template-columns:1fr 1fr;
-gap:14px;margin-top:22px
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:14px;margin-top:22px
 }
 .card{
-background:white;padding:25px 12px;
-border-radius:12px;text-align:center;
-box-shadow:0 2px 12px #0000000d;
-cursor:pointer;transition:.2s
+ background:white;padding:25px 12px;
+ border-radius:12px;text-align:center;
+ box-shadow:0 2px 12px #0000000d;
+ cursor:pointer;transition:.2s
 }
 .card:active{transform:scale(.97)}
 .card h3{margin:10px 0 5px}
 .card p{font-size:13px;color:#64748b}
 .emoji{font-size:30px}
-footer{
-text-align:center;padding:25px;
-color:#64748b;font-size:13px
-}
 .hidden{display:none!important}
 .back{
-background:#12345a;color:white;border:0;
-padding:11px 18px;border-radius:8px;
-font-size:15px;margin-bottom:18px;cursor:pointer
+ background:#12345a;color:white;border:0;
+ padding:11px 18px;border-radius:8px;
+ font-size:15px;margin-bottom:18px;cursor:pointer
 }
 .post{
-background:white;padding:17px;
-border-radius:10px;margin:12px 0;
-box-shadow:0 2px 8px #0000000d
+ background:white;padding:17px;
+ border-radius:10px;margin:12px 0;
+ box-shadow:0 2px 8px #0000000d
 }
-.post h3{margin:0 0 8px;font-size:16px}
-.post a{color:#12345a;text-decoration:none;font-weight:bold}
+.post h3{margin:0 0 9px;font-size:16px}
 .post small{color:#64748b}
+.post a{
+ display:inline-block;margin-top:12px;
+ color:#12345a;text-decoration:none;font-weight:bold
+}
 .status{text-align:center;padding:25px;color:#64748b}
+.section-title{margin-top:5px}
+.archive{
+ display:inline-block;margin:5px 0 15px;
+ color:#2563a5;text-decoration:none;font-size:14px
+}
+footer{
+ text-align:center;padding:25px;color:#64748b;
+ font-size:13px
+}
+footer a{color:#12345a;text-decoration:none}
+@media(max-width:400px){
+ .grid{gap:10px}
+ .card{padding:20px 8px}
+}
 </style>
 </head>
 
@@ -71,31 +84,33 @@ box-shadow:0 2px 8px #0000000d
 
 <main>
 
+<!-- HOME -->
 <section id="home">
+
 <input class="search" id="homeSearch"
 type="search" placeholder="Search medical topics...">
 
 <div class="grid" id="categories">
 
-<div class="card">
+<div class="card" onclick="openSection('medicine')">
 <div class="emoji">📚</div>
 <h3>Medicine</h3>
 <p>Medical articles</p>
 </div>
 
-<div class="card" onclick="openMCQs()">
+<div class="card" onclick="openSection('mcqs')">
 <div class="emoji">📝</div>
 <h3>MCQs</h3>
 <p>Test your knowledge</p>
 </div>
 
-<div class="card">
+<div class="card" onclick="openSection('research')">
 <div class="emoji">🔬</div>
 <h3>Research</h3>
 <p>Research learning</p>
 </div>
 
-<div class="card">
+<div class="card" onclick="openSection('general')">
 <div class="emoji">💡</div>
 <h3>General Knowledge</h3>
 <p>Explore science</p>
@@ -104,148 +119,281 @@ type="search" placeholder="Search medical topics...">
 </div>
 </section>
 
-<section id="mcqs" class="hidden">
+<!-- CONTENT SECTION -->
+<section id="content" class="hidden">
 
 <button class="back" onclick="goHome()">← Back to Home</button>
 
-<h2>📝 Medical MCQs</h2>
-<p>Explore questions from Sudan Med Hub.</p>
+<h2 id="sectionTitle" class="section-title"></h2>
 
-<input class="search" id="mcqSearch"
-type="search" placeholder="Search MCQs...">
+<p id="sectionDescription"></p>
+
+<a id="archiveLink" class="archive"
+target="_blank" rel="noopener">
+Open all posts on Blogger →
+</a>
+
+<input class="search" id="postSearch"
+type="search" placeholder="Search posts...">
 
 <div id="posts" class="status">
-Loading medical questions...
+Loading content...
 </div>
 
 </section>
+
 </main>
 
-<footer>Sudan Med Hub © 2026</footer>
+<footer>
+<p>Sudan Med Hub © 2026</p>
+<a href="https://sudanmedic.blogspot.com/" target="_blank" rel="noopener">
+Visit Our Medical Blog
+</a>
+</footer>
 
 <script>
 
-function openMCQs(){
+// BLOGGER CONFIGURATION
+const BLOG = "https://sudanmedic.blogspot.com";
+
+// Categories and Blogger Labels
+const sections = {
+
+medicine:{
+label:"Medicine",
+title:"📚 Medicine",
+description:"Explore medical articles and clinical knowledge.",
+archive:"https://sudanmedic.blogspot.com/search/label/Medicine"
+},
+
+mcqs:{
+label:"MCQs",
+title:"📝 Medical MCQs",
+description:"Practice medical questions and test your knowledge.",
+archive:"https://sudanmedic.blogspot.com/search/label/MCQs"
+},
+
+research:{
+label:"Research",
+title:"🔬 Medical Research",
+description:"Explore medical research and scientific learning.",
+archive:"https://sudanmedic.blogspot.com/search/label/Research"
+},
+
+general:{
+label:"General Knowledge",
+title:"💡 General Knowledge",
+description:"Explore science and general medical knowledge.",
+archive:"https://sudanmedic.blogspot.com/search/label/General%20Knowledge"
+}
+
+};
+
+let currentSection = "";
+let cache = {};
+let requestNumber = 0;
+
+// NAVIGATION
+function openSection(section){
+
+if(!sections[section]) return;
+
+currentSection = section;
+
 document.getElementById("home").classList.add("hidden");
-document.getElementById("mcqs").classList.remove("hidden");
-loadMCQs();
+document.getElementById("content").classList.remove("hidden");
+
+const config = sections[section];
+
+document.getElementById("sectionTitle").textContent = config.title;
+document.getElementById("sectionDescription").textContent = config.description;
+document.getElementById("archiveLink").href = config.archive;
+
+document.getElementById("postSearch").value = "";
+
+if(cache[section]){
+renderPosts(cache[section]);
+}else{
+loadPosts(section);
+}
+
 }
 
 function goHome(){
-document.getElementById("mcqs").classList.add("hidden");
+
+document.getElementById("content").classList.add("hidden");
 document.getElementById("home").classList.remove("hidden");
+
+currentSection = "";
+
 }
 
-let loaded=false;
-let allPosts=[];
+// LOAD BLOGGER FEED
+function loadPosts(section){
 
-function loadMCQs(){
+const output = document.getElementById("posts");
+output.textContent = "Loading posts...";
 
-if(loaded){
-renderPosts(allPosts);
-return;
+const config = sections[section];
+const callback = "bloggerCallback" + (++requestNumber);
+
+const script = document.createElement("script");
+
+const url =
+BLOG + "/feeds/posts/default/-/" +
+encodeURIComponent(config.label) +
+"?alt=json-in-script&max-results=50&callback=" +
+callback;
+
+let finished = false;
+
+function cleanup(){
+if(script.parentNode) script.remove();
+delete window[callback];
 }
 
-const output=document.getElementById("posts");
-output.innerHTML="Loading questions...";
+window[callback] = function(data){
 
-window.handleBloggerFeed=function(data){
+if(finished) return;
+finished = true;
 
-const entries=data.feed.entry||[];
+const entries = data.feed && data.feed.entry
+? data.feed.entry : [];
 
-allPosts=entries.map(entry=>{
-const link=entry.link.find(item=>item.rel==="alternate");
+cache[section] = entries.map(entry=>{
+
+const link = entry.link.find(
+item=>item.rel === "alternate"
+);
 
 return {
 title:entry.title.$t,
 date:entry.published.$t,
-url:link?link.href:"#"
+url:link ? link.href : BLOG
 };
+
 });
 
-loaded=true;
-renderPosts(allPosts);
+cleanup();
 
-};
-
-const script=document.createElement("script");
-
-script.src=
-"https://sudanmedic.blogspot.com/feeds/posts/default/-/MCQs?alt=json-in-script&max-results=50&callback=handleBloggerFeed";
-
-script.onerror=function(){
-output.innerHTML="Unable to load MCQs. Check your internet connection.";
-};
-
-document.body.appendChild(script);
+if(currentSection === section){
+renderPosts(cache[section]);
 }
 
+};
+
+script.onerror = function(){
+
+if(finished) return;
+finished = true;
+cleanup();
+
+if(currentSection === section){
+output.textContent =
+"Unable to load posts. Please check your internet connection.";
+}
+
+};
+
+script.src = url;
+document.body.appendChild(script);
+
+}
+
+// DISPLAY POSTS
 function renderPosts(posts){
 
-const output=document.getElementById("posts");
+const output = document.getElementById("posts");
 
-if(!posts.length){
-output.innerHTML="No MCQs posts found.";
+output.innerHTML = "";
+
+if(!posts || posts.length === 0){
+
+output.textContent =
+"No posts found in this category.";
+
 return;
-}
 
-output.innerHTML="";
+}
 
 posts.forEach(post=>{
 
-const item=document.createElement("div");
-item.className="post";
+const item = document.createElement("div");
+item.className = "post";
 
-const title=document.createElement("h3");
-title.textContent=post.title;
+const title = document.createElement("h3");
+title.textContent = post.title;
 
-const date=document.createElement("small");
-date.textContent=new Date(post.date).toLocaleDateString();
+const date = document.createElement("small");
+date.textContent =
+"Published: " +
+new Date(post.date).toLocaleDateString();
 
-const link=document.createElement("a");
-link.href=post.url;
-link.target="_blank";
-link.rel="noopener";
-link.textContent="Read Questions →";
+const link = document.createElement("a");
+link.href = post.url;
+link.target = "_blank";
+link.rel = "noopener";
+link.textContent = "Read More →";
 
-item.append(title,date,document.createElement("br"),link);
+item.append(
+title,
+date,
+document.createElement("br"),
+link
+);
+
 output.appendChild(item);
 
 });
+
 }
 
-document.getElementById("mcqSearch")
+// SEARCH POSTS
+document.getElementById("postSearch")
 .addEventListener("input",function(){
 
-const query=this.value.toLowerCase();
+const query = this.value.toLowerCase();
 
-renderPosts(allPosts.filter(post=>
+const posts = cache[currentSection] || [];
+
+renderPosts(
+posts.filter(post=>
 post.title.toLowerCase().includes(query)
-));
+)
+);
 
 });
 
+// HOME SEARCH
 document.getElementById("homeSearch")
 .addEventListener("input",function(){
 
-const query=this.value.toLowerCase();
+const query = this.value.toLowerCase();
 
 document.querySelectorAll("#categories .card")
 .forEach(card=>{
-card.style.display=
+
+card.style.display =
 card.innerText.toLowerCase().includes(query)
-?"block":"none";
-});
+? "block" : "none";
 
 });
 
+});
+
+// SERVICE WORKER
 if("serviceWorker" in navigator){
+
 window.addEventListener("load",()=>{
+
 navigator.serviceWorker.register("./service-worker.js")
-.catch(console.error);
+.catch(error=>console.error("Service Worker:",error));
+
 });
+
 }
 
 </script>
+
 </body>
 </html>
