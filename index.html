@@ -3,789 +3,1157 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123451">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f9fc">
 <title>Sudan Med Hub</title>
-<link rel="manifest" href="./manifest.json">
 <style>
 :root{
-  --navy:#123451;--teal:#087e83;--bg:#f3f6fa;
-  --text:#243247;--muted:#718096;--green:#16834a;
-  --red:#c83f45;--line:#e2e8f0;
+  --green:#58cc02;
+  --green-dark:#46a302;
+  --blue:#1cb0f6;
+  --red:#ff4b4b;
+  --yellow:#ffc800;
+  --ink:#263238;
+  --muted:#77838f;
+  --bg:#f7f9fc;
+  --card:#fff;
+  --line:#e5eaf0;
+  --shadow:0 3px 0 #e3e8ee;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
-font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Arial,Helvetica,sans-serif;
+}
 button{font:inherit;cursor:pointer}
-.app{max-width:850px;margin:auto;padding:16px}
-header{background:linear-gradient(135deg,#102b46,#087e83);
-color:white;padding:23px;border-radius:18px;margin-bottom:17px}
-header h1{margin:0;font-size:25px}
-header p{margin:5px 0 0;color:#dceff0;font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
-.stat,.panel{background:white;border:1px solid var(--line);
-border-radius:13px;padding:14px}
-.stat strong{display:block;color:var(--teal);font-size:22px}
-.stat span{font-size:12px;color:var(--muted)}
-.tabs{display:flex;gap:8px;overflow:auto;margin:16px 0}
-.tab{border:0;background:white;border-radius:10px;padding:10px 16px;
-color:var(--navy);white-space:nowrap}
-.tab.active{background:var(--navy);color:white}
-.panel{margin-bottom:13px}
-.section-title{font-size:19px;margin:4px 0 12px;color:var(--navy)}
-.muted{color:var(--muted);font-size:13px}
-.article{padding:14px 0;border-bottom:1px solid var(--line)}
-.article:last-child{border:0}
-.article h3{font-size:16px;margin:0 0 5px}
-.article-meta{font-size:12px;color:var(--muted)}
-.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;
-font-weight:bold}
-.primary{background:var(--teal);color:white}
-.secondary{background:#eaf0f5;color:var(--navy)}
-.primary:disabled{opacity:.4;cursor:not-allowed}
-.category{display:inline-block;background:#e8f5f4;color:var(--teal);
-padding:3px 9px;border-radius:20px;font-size:11px;margin:3px}
-.progress-bg{height:8px;background:#e7edf2;border-radius:20px;
-overflow:hidden;margin:12px 0}
-.progress-fill{height:100%;background:var(--teal);width:0;
-transition:width .2s}
-.question-number{font-size:13px;color:var(--teal);font-weight:bold}
-.question-text{font-size:18px;font-weight:bold;margin:14px 0}
-.option{display:flex;gap:10px;padding:12px;border:1px solid var(--line);
-border-radius:10px;margin:9px 0;background:#fff;cursor:pointer}
-.option input{margin-top:5px;accent-color:var(--teal)}
-.option.correct{background:#e8f7ee;border-color:var(--green)}
-.option.wrong{background:#fff0ef;border-color:var(--red)}
-.feedback{padding:14px;border-radius:10px;margin-top:13px;
-background:#f1f6f8;display:none}
+button:disabled{cursor:not-allowed;opacity:.65}
+.app{max-width:850px;margin:auto;min-height:100vh;padding:18px 15px 100px}
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:20px;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:45px;height:45px;border-radius:14px;
+  background:#e9f9dc;display:grid;place-items:center;
+  font-size:25px;
+}
+.brand h1{font-size:20px;margin:0 0 4px;font-weight:900}
+.brand p{font-size:12px;color:var(--muted);margin:0}
+.sound-btn{
+  border:1px solid var(--line);background:white;border-radius:12px;
+  padding:10px 12px;font-weight:bold;color:var(--ink);
+}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:10px;margin:15px 0 20px;
+}
+.stat{
+  background:white;border:1px solid var(--line);
+  border-radius:15px;padding:13px 8px;text-align:center;
+}
+.stat strong{display:block;font-size:20px;margin-bottom:4px}
+.stat span{font-size:11px;color:var(--muted)}
+.tabs{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:8px;margin:20px 0;
+}
+.tab{
+  border:1px solid var(--line);background:white;
+  border-radius:13px;padding:13px 5px;font-weight:800;
+  color:#687582;box-shadow:var(--shadow);
+}
+.tab.active{
+  background:#eaf8df;border-color:#b9e69a;color:#398b00;
+  box-shadow:0 3px 0 #b9e69a;
+}
+.panel{display:none}
+.panel.active{display:block}
+.section-title{font-size:22px;font-weight:900;margin:12px 0 6px}
+.section-sub{font-size:13px;color:var(--muted);margin:0 0 18px;line-height:1.6}
+.category-list{
+  display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;
+}
+.chip{
+  border:1px solid var(--line);background:white;color:#52616e;
+  padding:9px 13px;border-radius:30px;font-size:13px;font-weight:800;
+}
+.chip.active{background:#e9f9dc;border-color:#9bdb6c;color:#398b00}
+.article-card,.lesson-card,.quiz-card,.progress-card{
+  background:white;border:1px solid var(--line);border-radius:17px;
+  padding:16px;margin:12px 0;box-shadow:var(--shadow);
+}
+.article-card{cursor:pointer;transition:.15s}
+.article-card:active{transform:translateY(2px)}
+.article-title{font-size:16px;font-weight:900;line-height:1.45;margin-bottom:8px}
+.article-meta{font-size:11px;color:var(--muted);margin:8px 0}
+.article-desc{font-size:13px;color:#63717d;line-height:1.6}
+.tag{
+  display:inline-block;background:#eef6ff;color:#2879ae;
+  border-radius:7px;padding:5px 8px;font-size:10px;
+  font-weight:800;margin:3px 4px 3px 0;
+}
+.primary{
+  background:var(--green);color:white;border:0;
+  border-radius:13px;padding:14px 18px;font-weight:900;
+  box-shadow:0 4px 0 var(--green-dark);
+}
+.primary:active{transform:translateY(3px);box-shadow:none}
+.secondary{
+  background:white;color:#65727e;border:1px solid var(--line);
+  border-radius:12px;padding:11px 15px;font-weight:800;
+}
+.full{width:100%}
+.lesson-card{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lesson-info{flex:1}
+.lesson-info h3{font-size:15px;line-height:1.45;margin:0 0 7px}
+.lesson-info p{font-size:12px;color:var(--muted);margin:0}
+.lesson-icon{
+  width:45px;height:45px;border-radius:13px;
+  display:grid;place-items:center;background:#eaf8df;font-size:23px;
+}
+.empty{
+  background:white;border:1px dashed #ccd5de;border-radius:15px;
+  padding:25px;text-align:center;color:var(--muted);line-height:1.7;
+}
+.loading{text-align:center;padding:30px;color:var(--muted)}
+.error{color:#c53b3b;background:#fff0f0;padding:13px;border-radius:12px;font-size:13px}
+.quiz-top{display:flex;align-items:center;gap:10px;margin:12px 0 18px}
+.progress-track{height:12px;background:#e5eaf0;border-radius:20px;flex:1;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--green);border-radius:20px;transition:.3s}
+.quiz-count{font-size:12px;color:var(--muted);font-weight:800;white-space:nowrap}
+.topic-label{
+  display:inline-block;background:#eaf8df;color:#398b00;
+  padding:6px 10px;border-radius:8px;font-size:11px;font-weight:900;
+  margin-bottom:12px;
+}
+.question{
+  font-size:20px;font-weight:900;line-height:1.55;margin:5px 0 20px;
+}
+.option{
+  display:flex;align-items:center;gap:12px;width:100%;
+  background:white;border:2px solid var(--line);
+  border-radius:14px;padding:13px;margin:10px 0;
+  text-align:left;color:var(--ink);font-size:14px;font-weight:700;
+  line-height:1.5;transition:.15s;
+}
+.option-letter{
+  width:30px;height:30px;flex:0 0 30px;border-radius:9px;
+  background:#f0f3f6;display:grid;place-items:center;font-weight:900;
+}
+.option.correct{border-color:var(--green);background:#efffe6;color:#347c00}
+.option.correct .option-letter{background:var(--green);color:white}
+.option.wrong{border-color:var(--red);background:#fff0f0;color:#c52d2d}
+.option.wrong .option-letter{background:var(--red);color:white}
+.option:disabled{opacity:1}
+.feedback{
+  display:none;border-radius:15px;padding:16px;margin:18px 0;
+  animation:pop .2s ease;
+}
 .feedback.show{display:block}
-.feedback .pearl{background:#fff8e8;padding:10px;border-radius:8px;
-margin-top:10px}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
-.hidden{display:none!important}
-.notice{padding:12px;border-radius:10px;background:#eef5fa;
-font-size:13px;margin:12px 0}
-.notice.error{background:#fff0ef;color:#9e3035}
-.notice.success{background:#e8f7ee;color:#176b3d}
-select{padding:10px;border:1px solid var(--line);border-radius:9px;
-width:100%;background:white;color:var(--text)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(max-width:500px){
- .app{padding:11px}
- header{padding:19px}
- .stats{gap:7px}
- .stat{padding:10px}
- .stat strong{font-size:19px}
- .question-text{font-size:16px}
+.feedback.good{background:#edffdf;border:1px solid #b7e99a}
+.feedback.bad{background:#fff0f0;border:1px solid #ffcaca}
+.feedback h3{margin:0 0 8px;font-size:19px}
+.feedback p{font-size:13px;line-height:1.7;margin:8px 0}
+.feedback .pearl{
+  background:#fff;border-radius:10px;padding:11px;
+  color:#52616e;font-size:13px;line-height:1.6;
+}
+.feedback .pearl strong{color:#398b00}
+.next-wrap{margin:18px 0}
+.quiz-actions{display:flex;gap:9px;justify-content:space-between;margin:12px 0}
+.quiz-actions button{flex:1}
+.result{text-align:center;padding:25px 15px}
+.result-emoji{font-size:65px;margin:10px}
+.result h2{font-size:25px;margin:10px}
+.result p{color:var(--muted);line-height:1.6}
+.result-score{
+  background:#f2f8ed;border-radius:15px;padding:15px;
+  margin:18px 0;font-weight:800;
+}
+.progress-card h3{margin:0 0 15px}
+.progress-row{
+  display:flex;justify-content:space-between;gap:10px;
+  padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;
+}
+.progress-row:last-child{border:0}
+.notice{font-size:12px;color:var(--muted);line-height:1.6;margin:16px 0}
+footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
+@keyframes pop{from{transform:scale(.97);opacity:.4}to{transform:scale(1);opacity:1}}
+@media(max-width:480px){
+  .app{padding:13px 12px 90px}
+  .brand h1{font-size:17px}
+  .question{font-size:18px}
+  .stat strong{font-size:18px}
 }
 </style>
 </head>
+
 <body>
 <div class="app">
 
 <header>
-  <h1>Sudan Med Hub</h1>
-  <p>Medical learning • Clinical knowledge • Interactive MCQs</p>
+  <div class="brand">
+    <div class="logo">🩺</div>
+    <div>
+      <h1>Sudan Med Hub</h1>
+      <p>Medical learning • Clinical knowledge</p>
+    </div>
+  </div>
+  <button class="sound-btn" id="soundToggle" onclick="toggleSound()">🔊 Sound ON</button>
 </header>
 
 <div class="stats">
-  <div class="stat"><strong id="xp">0</strong><span>XP earned</span></div>
-  <div class="stat"><strong id="streak">0</strong><span>Correct streak</span></div>
-  <div class="stat"><strong id="completed">0</strong><span>Questions completed</span></div>
+  <div class="stat"><strong id="xpStat">360</strong><span>⚡ Total XP</span></div>
+  <div class="stat"><strong id="streakStat">0</strong><span>🔥 Correct streak</span></div>
+  <div class="stat"><strong id="doneStat">90</strong><span>📚 Completed</span></div>
 </div>
 
 <nav class="tabs">
-  <button class="tab active" data-page="home">Learn</button>
-  <button class="tab" data-page="library">Library</button>
-  <button class="tab" data-page="progress">Progress</button>
+  <button class="tab active" data-tab="learn" onclick="showTab('learn')">🎮 MCQs</button>
+  <button class="tab" data-tab="read" onclick="showTab('read')">📖 Read</button>
+  <button class="tab" data-tab="progress" onclick="showTab('progress')">🏆 Progress</button>
 </nav>
 
-<div id="status" class="notice">Connecting to Sudan Med Hub...</div>
+<!-- MCQs -->
+<section class="panel active" id="learn">
+  <div class="section-title">Let's learn! 🚀</div>
+  <p class="section-sub">Choose a subject, answer one question at a time, and earn XP.</p>
 
-<section id="home">
-  <div class="panel">
-    <h2 class="section-title">Continue learning</h2>
-    <p class="muted">Choose a subject and start practising questions from the blog.</p>
-    <label for="subject">Select subject</label>
-    <select id="subject"><option value="">Loading subjects...</option></select>
-    <div class="actions">
-      <button class="primary" id="startBtn" disabled>Start learning</button>
+  <div id="mcqCategories" class="category-list"></div>
+  <div id="mcqList"><div class="loading">Loading your MCQs... ⏳</div></div>
+
+  <div id="quizArea" style="display:none">
+    <div class="quiz-actions">
+      <button class="secondary" onclick="backToLessons()">← Back</button>
+      <button class="secondary" onclick="toggleSound()" id="quizSound">🔊 Sound</button>
     </div>
-  </div>
-  <div class="panel">
-    <h2 class="section-title">Available MCQ articles</h2>
-    <div id="homeArticles" class="muted">Loading articles...</div>
-  </div>
-</section>
-
-<section id="library" class="hidden">
-  <div class="panel">
-    <h2 class="section-title">MCQ Library</h2>
-    <div id="libraryArticles"></div>
-  </div>
-</section>
-
-<section id="quiz" class="hidden">
-  <div class="panel">
-    <div class="question-number" id="qCounter"></div>
-    <div class="progress-bg"><div class="progress-fill" id="qProgress"></div></div>
-    <div id="topic" class="category"></div>
-    <div class="question-text" id="qText"></div>
-    <div id="options"></div>
-    <div class="feedback" id="feedback"></div>
-    <div class="actions">
-      <button class="primary" id="checkBtn" disabled>Check answer</button>
-      <button class="primary hidden" id="nextBtn">Continue</button>
-      <button class="secondary" id="exitBtn">Exit quiz</button>
+    <div class="quiz-top">
+      <div class="progress-track"><div class="progress-fill" id="quizProgress"></div></div>
+      <div class="quiz-count" id="quizCount">1/10</div>
+    </div>
+    <div class="quiz-card">
+      <div class="topic-label" id="questionTopic">Topic</div>
+      <div class="question" id="questionText"></div>
+      <div id="optionsArea"></div>
+      <div class="feedback" id="feedback">
+        <h3 id="feedbackTitle"></h3>
+        <p id="feedbackText"></p>
+        <div class="pearl" id="pearlText"></div>
+      </div>
+      <div class="next-wrap" id="nextWrap" style="display:none">
+        <button class="primary full" id="nextButton" onclick="nextQuestion()">Continue ➜</button>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="result" class="hidden">
-  <div class="panel">
-    <h2 class="section-title">Quiz completed!</h2>
-    <h1 id="finalScore" style="color:var(--teal)">0 / 0</h1>
-    <p id="finalMessage"></p>
-    <button class="primary" id="backBtn">Back to learning</button>
-  </div>
+<!-- Reading -->
+<section class="panel" id="read">
+  <div class="section-title">Medical Library 📖</div>
+  <p class="section-sub">Explore medical articles directly from Sudan Med Hub.</p>
+  <div id="readCategories" class="category-list"></div>
+  <div id="articlesList"><div class="loading">Loading articles... ⏳</div></div>
 </section>
 
-<section id="progress" class="hidden">
-  <div class="panel">
-    <h2 class="section-title">Your learning progress</h2>
-    <p>Total XP: <strong id="progressXP">0</strong></p>
-    <p>Questions completed: <strong id="progressCompleted">0</strong></p>
-    <p>Correct answers: <strong id="progressCorrect">0</strong></p>
-    <p>Accuracy: <strong id="accuracy">0%</strong></p>
-    <div class="progress-bg"><div class="progress-fill" id="accuracyBar"></div></div>
-    <button class="secondary" id="resetProgress">Reset progress</button>
+<!-- Progress -->
+<section class="panel" id="progress">
+  <div class="section-title">Your achievements 🏆</div>
+  <p class="section-sub">Every question brings you one step forward.</p>
+  <div class="progress-card">
+    <h3>📊 Learning progress</h3>
+    <div class="progress-row"><span>Total XP</span><strong id="xpValue">360</strong></div>
+    <div class="progress-row"><span>Questions completed</span><strong id="doneValue">90</strong></div>
+    <div class="progress-row"><span>Correct answers</span><strong id="correctValue">36</strong></div>
+    <div class="progress-row"><span>Accuracy</span><strong id="accuracyValue">40%</strong></div>
+    <div class="progress-row"><span>Current streak</span><strong id="streakValue">0 🔥</strong></div>
   </div>
+  <div class="progress-card">
+    <h3>🎖️ Your level</h3>
+    <div id="levelText">Medical Learner</div>
+    <div class="progress-track" style="margin-top:12px">
+      <div class="progress-fill" id="levelProgress"></div>
+    </div>
+    <p class="notice" id="levelHint"></p>
+  </div>
+  <p class="notice">Your progress is saved on this device. Clearing browser data may remove locally saved progress.</p>
 </section>
 
-<footer>Sudan Med Hub · Learn medicine one question at a time.</footer>
+<footer>Sudan Med Hub · Learn medicine one question at a time ❤️</footer>
 </div>
 
 <script>
-"use strict";
+/* ==========================================
+   SUDAN MED HUB
+   Blogger is the content source.
+========================================== */
 
-const BLOG = "https://sudanmedic.blogspot.com";
-const FEED = BLOG + "/feeds/posts/default/-/MCQs?alt=json&max-results=150";
+const BLOG_ID = "8386237347151322294";
+const BLOG_URL = "https://sudanmedic.blogspot.com";
+const FEED_URL = `https://www.blogger.com/feeds/${BLOG_ID}/posts/default`;
 
-const $ = id => document.getElementById(id);
+const CATEGORY_ORDER = [
+  "Medicine","Surgery","Pediatrics","Psychiatry",
+  "Community","Research","general knowledge"
+];
 
-let articles = [];
-let quizQuestions = [];
-let current = 0;
-let selected = null;
-let checked = false;
-let score = 0;
-let sessionCorrect = 0;
+const STORAGE_KEY = "smh_learning_progress_v2";
 
-let saved = {};
-try {
-  saved = JSON.parse(localStorage.getItem("smh_progress") || "{}");
-} catch(e) {
-  saved = {};
+let allPosts = [];
+let readingPosts = [];
+let mcqPosts = [];
+let selectedReadCategory = "All";
+let selectedMcqCategory = "All";
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let currentCorrect = 0;
+let currentAnswered = false;
+let currentLessonTitle = "";
+let soundEnabled = true;
+let audioContext = null;
+
+let progress = loadProgress();
+
+/* Preserve the currently displayed progress as a starting point
+   if this new version has not yet saved its own progress. */
+function loadProgress(){
+  try{
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved){
+      const parsed = JSON.parse(saved);
+      return {
+        xp:Number(parsed.xp)||0,
+        completed:Number(parsed.completed)||0,
+        correct:Number(parsed.correct)||0,
+        streak:Number(parsed.streak)||0,
+        bestStreak:Number(parsed.bestStreak)||0
+      };
+    }
+  }catch(e){}
+  return {xp:360,completed:90,correct:36,streak:0,bestStreak:0};
 }
 
-saved.xp = Number(saved.xp) || 0;
-saved.completed = Number(saved.completed) || 0;
-saved.correct = Number(saved.correct) || 0;
-saved.streak = Number(saved.streak) || 0;
-
 function saveProgress(){
-  localStorage.setItem("smh_progress", JSON.stringify(saved));
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));}
+  catch(e){}
   updateStats();
 }
 
 function updateStats(){
-  $("xp").textContent = saved.xp;
-  $("streak").textContent = saved.streak;
-  $("completed").textContent = saved.completed;
-  $("progressXP").textContent = saved.xp;
-  $("progressCompleted").textContent = saved.completed;
-  $("progressCorrect").textContent = saved.correct;
+  document.getElementById("xpStat").textContent=progress.xp;
+  document.getElementById("streakStat").textContent=progress.streak;
+  document.getElementById("doneStat").textContent=progress.completed;
 
-  const accuracy = saved.completed
-    ? Math.round(saved.correct / saved.completed * 100) : 0;
+  document.getElementById("xpValue").textContent=progress.xp;
+  document.getElementById("doneValue").textContent=progress.completed;
+  document.getElementById("correctValue").textContent=progress.correct;
 
-  $("accuracy").textContent = accuracy + "%";
-  $("accuracyBar").style.width = accuracy + "%";
+  const accuracy=progress.completed
+    ?Math.round(progress.correct/progress.completed*100):0;
+
+  document.getElementById("accuracyValue").textContent=accuracy+"%";
+  document.getElementById("streakValue").textContent=progress.streak+" 🔥";
+
+  const level=Math.floor(progress.xp/500)+1;
+  const currentLevelXP=progress.xp%500;
+
+  document.getElementById("levelText").textContent=
+    levelName(level)+" · Level "+level;
+
+  document.getElementById("levelProgress").style.width=
+    (currentLevelXP/500*100)+"%";
+
+  document.getElementById("levelHint").textContent=
+    `${500-currentLevelXP} XP until your next level. Keep going!`;
 }
 
-/* ---------- Safe parser for JavaScript literal arrays ---------- */
-
-function parseQuestionsFromHTML(html){
-  if(typeof html !== "string") return [];
-
-  const patterns = [
-    /\b(?:const|let|var)\s+questions\s*=\s*/g
-  ];
-
-  for(const pattern of patterns){
-    pattern.lastIndex = 0;
-    const match = pattern.exec(html);
-    if(!match) continue;
-
-    const start = match.index + match[0].length;
-    try {
-      const parser = new LiteralParser(html, start);
-      const value = parser.parseValue();
-
-      if(Array.isArray(value) && value.length) {
-        return value.filter(isValidQuestion);
-      }
-    } catch(error) {
-      console.warn("Question parsing failed:", error.message);
-    }
-  }
-  return [];
+function levelName(level){
+  if(level>=10)return "Clinical Expert";
+  if(level>=7)return "Medical Master";
+  if(level>=5)return "Advanced Learner";
+  if(level>=3)return "Rising Clinician";
+  return "Medical Learner";
 }
 
-class LiteralParser{
-  constructor(source, position){
-    this.s = source;
-    this.i = position;
-  }
-
-  whitespace(){
-    while(this.i < this.s.length && /\s/.test(this.s[this.i])) {
-      this.i++;
-    }
-  }
-
-  parseValue(){
-    this.whitespace();
-    const c = this.s[this.i];
-
-    if(c === "[") return this.parseArray();
-    if(c === "{") return this.parseObject();
-    if(c === "'" || c === '"') return this.parseString();
-
-    const rest = this.s.slice(this.i);
-    const number = rest.match(/^-?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?/);
-
-    if(number){
-      this.i += number[0].length;
-      return Number(number[0]);
-    }
-
-    for(const word of ["true","false","null"]){
-      if(rest.startsWith(word)){
-        this.i += word.length;
-        return word === "true" ? true :
-               word === "false" ? false : null;
-      }
-    }
-
-    throw new Error("Unsupported value at position " + this.i);
-  }
-
-  parseString(){
-    const quote = this.s[this.i++];
-    let result = "";
-
-    while(this.i < this.s.length){
-      let c = this.s[this.i++];
-
-      if(c === quote) return result;
-
-      if(c !== "\\"){
-        result += c;
-        continue;
-      }
-
-      if(this.i >= this.s.length) break;
-
-      c = this.s[this.i++];
-
-      const escapes = {
-        "n":"\n","r":"\r","t":"\t","b":"\b",
-        "f":"\f","v":"\v","0":"\0",
-        "\\":"\\","'":"'","\"":"\"","/":"/"
-      };
-
-      if(Object.prototype.hasOwnProperty.call(escapes,c)){
-        result += escapes[c];
-      } else if(c === "\n"){
-        continue;
-      } else if(c === "\r"){
-        if(this.s[this.i] === "\n") this.i++;
-      } else if(c === "x"){
-        const hex = this.s.slice(this.i,this.i+2);
-        if(!/^[0-9a-f]{2}$/i.test(hex)) throw new Error("Bad hex escape");
-        result += String.fromCharCode(parseInt(hex,16));
-        this.i += 2;
-      } else if(c === "u"){
-        if(this.s[this.i] === "{"){
-          const end = this.s.indexOf("}",this.i);
-          if(end < 0) throw new Error("Bad unicode escape");
-          const code = parseInt(this.s.slice(this.i+1,end),16);
-          result += String.fromCodePoint(code);
-          this.i = end+1;
-        } else {
-          const hex = this.s.slice(this.i,this.i+4);
-          if(!/^[0-9a-f]{4}$/i.test(hex)) throw new Error("Bad unicode escape");
-          result += String.fromCharCode(parseInt(hex,16));
-          this.i += 4;
-        }
-      } else {
-        result += c;
-      }
-    }
-
-    throw new Error("Unclosed string");
-  }
-
-  parseArray(){
-    const result = [];
-    this.i++;
-    this.whitespace();
-
-    if(this.s[this.i] === "]"){
-      this.i++;
-      return result;
-    }
-
-    while(this.i < this.s.length){
-      result.push(this.parseValue());
-      this.whitespace();
-
-      if(this.s[this.i] === "]"){
-        this.i++;
-        return result;
-      }
-
-      if(this.s[this.i] !== ",") throw new Error("Expected comma in array");
-      this.i++;
-      this.whitespace();
-
-      if(this.s[this.i] === "]"){
-        this.i++;
-        return result;
-      }
-    }
-
-    throw new Error("Unclosed array");
-  }
-
-  parseObject(){
-    const result = {};
-    this.i++;
-    this.whitespace();
-
-    if(this.s[this.i] === "}"){
-      this.i++;
-      return result;
-    }
-
-    while(this.i < this.s.length){
-      this.whitespace();
-
-      let key;
-      const c = this.s[this.i];
-
-      if(c === "'" || c === '"'){
-        key = this.parseString();
-      } else {
-        const m = this.s.slice(this.i).match(/^[A-Za-z_$][\w$]*/);
-        if(!m) throw new Error("Invalid object key");
-        key = m[0];
-        this.i += key.length;
-      }
-
-      this.whitespace();
-      if(this.s[this.i] !== ":") throw new Error("Expected colon");
-      this.i++;
-
-      result[key] = this.parseValue();
-      this.whitespace();
-
-      if(this.s[this.i] === "}"){
-        this.i++;
-        return result;
-      }
-
-      if(this.s[this.i] !== ",") throw new Error("Expected comma in object");
-      this.i++;
-      this.whitespace();
-
-      if(this.s[this.i] === "}"){
-        this.i++;
-        return result;
-      }
-    }
-
-    throw new Error("Unclosed object");
-  }
+/* Navigation */
+function showTab(tab){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+  document.getElementById(tab).classList.add("active");
+  document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
+  if(tab==="progress")updateStats();
 }
 
-function isValidQuestion(q){
-  return !!q &&
-    typeof q.q === "string" &&
-    Array.isArray(q.o) &&
-    q.o.length >= 2 &&
-    Number.isInteger(q.a) &&
-    q.a >= 0 &&
-    q.a < q.o.length &&
-    q.o.every(x => typeof x === "string");
+/* Sound effects using Web Audio API */
+function getAudio(){
+  try{
+    if(!audioContext){
+      const AudioCtx=window.AudioContext||window.webkitAudioContext;
+      if(!AudioCtx)return null;
+      audioContext=new AudioCtx();
+    }
+    if(audioContext.state==="suspended")audioContext.resume();
+    return audioContext;
+  }catch(e){return null;}
 }
 
-/* ---------- Blogger feed ---------- */
+function playTone(frequency,duration,type="sine",volume=0.08,delay=0){
+  if(!soundEnabled)return;
+  const ctx=getAudio();
+  if(!ctx)return;
+  const oscillator=ctx.createOscillator();
+  const gain=ctx.createGain();
+  oscillator.type=type;
+  oscillator.frequency.setValueAtTime(frequency,ctx.currentTime+delay);
+  gain.gain.setValueAtTime(volume,ctx.currentTime+delay);
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,ctx.currentTime+delay+duration
+  );
+  oscillator.connect(gain);
+  gain.connect(ctx.destination);
+  oscillator.start(ctx.currentTime+delay);
+  oscillator.stop(ctx.currentTime+delay+duration);
+}
 
-function loadFeed(){
+function playCorrectSound(){
+  playTone(523,0.16,"sine",0.08,0);
+  playTone(659,0.16,"sine",0.08,0.13);
+  playTone(784,0.28,"sine",0.09,0.26);
+}
+
+function playWrongSound(){
+  playTone(240,0.18,"triangle",0.07,0);
+  playTone(180,0.24,"triangle",0.06,0.15);
+}
+
+function playCompleteSound(){
+  playTone(523,0.16,"sine",0.08,0);
+  playTone(659,0.16,"sine",0.08,0.15);
+  playTone(784,0.16,"sine",0.08,0.30);
+  playTone(1046,0.35,"sine",0.09,0.45);
+}
+
+function toggleSound(){
+  soundEnabled=!soundEnabled;
+  const label=soundEnabled?"🔊 Sound ON":"🔇 Sound OFF";
+  document.getElementById("soundToggle").textContent=label;
+  const quizSound=document.getElementById("quizSound");
+  if(quizSound)quizSound.textContent=soundEnabled?"🔊 Sound ON":"🔇 Sound OFF";
+  if(soundEnabled)playTone(600,0.1);
+}
+
+/* Small phone vibration */
+function vibrate(pattern){
+  try{if(navigator.vibrate)navigator.vibrate(pattern);}catch(e){}
+}
+
+/* Blogger JSONP */
+function loadBloggerFeed(){
   return new Promise((resolve,reject)=>{
-    const callback = "smhCallback_" + Date.now() + "_" +
-      Math.floor(Math.random()*100000);
-
-    const script = document.createElement("script");
-    const separator = FEED.includes("?") ? "&" : "?";
-
-    let finished = false;
-
-    const timer = setTimeout(()=>{
-      finish(new Error("Feed request timed out"));
+    const callback="smhCallback_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+    const script=document.createElement("script");
+    const timeout=setTimeout(()=>{
+      cleanup();
+      reject(new Error("Blogger feed request timed out"));
     },20000);
 
-    function finish(error,data){
-      if(finished) return;
-      finished = true;
-      clearTimeout(timer);
-      delete window[callback];
+    function cleanup(){
+      clearTimeout(timeout);
+      try{delete window[callback];}catch(e){window[callback]=undefined;}
       script.remove();
-
-      if(error) reject(error);
-      else resolve(data);
     }
 
-    window[callback] = data => finish(null,data);
-    script.onerror = () => finish(new Error("Could not load Blogger feed"));
-    script.src = FEED + separator + "alt=json-in-script&callback=" + callback;
+    window[callback]=data=>{
+      cleanup();
+      resolve(data);
+    };
 
-    document.head.appendChild(script);
+    script.onerror=()=>{
+      cleanup();
+      reject(new Error("Could not connect to Blogger"));
+    };
+
+    script.src=FEED_URL+
+      "?alt=json-in-script&max-results=150&callback="+callback;
+
+    document.body.appendChild(script);
   });
 }
 
-function normalizeArticle(entry){
-  const content = entry.content?.$t || entry.summary?.$t || "";
-  const title = entry.title?.$t || "Untitled article";
+function getEntryText(entry){
+  return entry?.content?.$t||entry?.summary?.$t||"";
+}
 
-  const link = (entry.link || []).find(x=>x.rel==="alternate");
-  const url = link?.href || BLOG;
+function getLabels(entry){
+  return (entry.category||[]).map(c=>c.term).filter(Boolean);
+}
 
-  const labels = (entry.category || []).map(x=>x.term);
-  const questions = parseQuestionsFromHTML(content);
+function getPostUrl(entry){
+  const links=entry.link||[];
+  const link=links.find(x=>x.rel==="alternate");
+  return link?link.href:"#";
+}
 
+function stripHTML(html){
+  const div=document.createElement("div");
+  div.innerHTML=html||"";
+  div.querySelectorAll("script,style,noscript").forEach(x=>x.remove());
+  return (div.textContent||div.innerText||"").replace(/\s+/g," ").trim();
+}
+
+function normalizePost(entry){
+  const content=getEntryText(entry);
+  const labels=getLabels(entry);
   return {
-    title,url,labels,questions,
-    total:questions.length,
-    date:entry.published?.$t || ""
+    title:entry.title?.$t||"Untitled article",
+    content:content,
+    labels:labels,
+    url:getPostUrl(entry),
+    date:entry.published?.$t||"",
+    excerpt:stripHTML(content).slice(0,210)
   };
 }
 
-async function initialize(){
-  updateStats();
+/* ==========================================
+   Safe parser for questions=[ ... ]
+   Supports JS object literals, arrays and
+   single/double quoted strings.
+========================================== */
 
-  try {
-    const data = await loadFeed();
-    const entries = data?.feed?.entry || [];
+function findQuestionsArray(source){
+  const match=/\b(?:const|let|var)\s+questions\s*=\s*/.exec(source);
+  if(!match)return null;
 
-    articles = entries.map(normalizeArticle);
+  let start=match.index+match[0].length;
+  while(/\s/.test(source[start]||""))start++;
+  if(source[start]!=="[")return null;
 
-    const readable = articles.filter(a=>a.total>0);
-    const totalQuestions = readable.reduce((n,a)=>n+a.total,0);
+  let depth=0,quote=null,escaped=false;
 
-    renderArticles();
-    renderSubjects();
+  for(let i=start;i<source.length;i++){
+    const ch=source[i];
 
-    if(readable.length){
-      $("status").className = "notice success";
-      $("status").textContent =
-        "Connected successfully. " + readable.length +
-        " MCQ articles and " + totalQuestions +
-        " readable questions found.";
-    } else {
-      $("status").className = "notice error";
-      $("status").textContent =
-        "Blogger returned " + entries.length +
-        " MCQ articles, but no readable question arrays were found. " +
-        "Check that the questions array is included in the article feed.";
+    if(quote){
+      if(escaped){escaped=false;continue;}
+      if(ch==="\\"){escaped=true;continue;}
+      if(ch===quote)quote=null;
+      continue;
     }
 
-    $("startBtn").disabled = readable.length === 0;
+    if(ch==="'"||ch==='"'||ch==="`"){
+      quote=ch;continue;
+    }
+    if(ch==="[")depth++;
+    if(ch==="]"){
+      depth--;
+      if(depth===0)return source.slice(start,i+1);
+    }
+  }
+  return null;
+}
 
-  } catch(error) {
-    console.error(error);
-    $("status").className = "notice error";
-    $("status").textContent =
-      "Could not connect to Blogger: " + error.message;
-    $("homeArticles").textContent = "Unable to load articles.";
-    $("libraryArticles").textContent = "Unable to load articles.";
+function parseJSValue(source){
+  let i=0;
+
+  function whitespace(){
+    while(i<source.length&&/\s/.test(source[i]))i++;
+  }
+
+  function parseString(){
+    const quote=source[i++];
+    let result="";
+    while(i<source.length){
+      let ch=source[i++];
+      if(ch===quote)return result;
+
+      if(ch==="\\"){
+        if(i>=source.length)break;
+        const next=source[i++];
+        const map={
+          "n":"\n","r":"\r","t":"\t","b":"\b",
+          "f":"\f","v":"\v","0":"\0"
+        };
+        if(next==="u"){
+          const hex=source.slice(i,i+4);
+          if(/^[0-9a-fA-F]{4}$/.test(hex)){
+            result+=String.fromCharCode(parseInt(hex,16));
+            i+=4;
+          }else result+="u";
+        }else if(next==="x"){
+          const hex=source.slice(i,i+2);
+          if(/^[0-9a-fA-F]{2}$/.test(hex)){
+            result+=String.fromCharCode(parseInt(hex,16));
+            i+=2;
+          }else result+="x";
+        }else{
+          result+=Object.prototype.hasOwnProperty.call(map,next)?map[next]:next;
+        }
+      }else result+=ch;
+    }
+    throw new Error("Unclosed string");
+  }
+
+  function parseIdentifier(){
+    const start=i;
+    while(i<source.length&&/[A-Za-z0-9_$]/.test(source[i]))i++;
+    return source.slice(start,i);
+  }
+
+  function parseValue(){
+    whitespace();
+    const ch=source[i];
+
+    if(ch==="'"||ch==='"')return parseString();
+
+    if(ch==="["){
+      i++;
+      const arr=[];
+      whitespace();
+      while(i<source.length&&source[i]!=="]"){
+        arr.push(parseValue());
+        whitespace();
+        if(source[i]===","){i++;whitespace();continue;}
+        if(source[i]!=="]")throw new Error("Invalid array");
+      }
+      i++;
+      return arr;
+    }
+
+    if(ch==="{"){
+      i++;
+      const obj={};
+      whitespace();
+      while(i<source.length&&source[i]!=="}"){
+        whitespace();
+        let key;
+        if(source[i]==="'"||source[i]==='"')key=parseString();
+        else key=parseIdentifier();
+
+        whitespace();
+        if(source[i]!==":")throw new Error("Invalid object key");
+        i++;
+        obj[key]=parseValue();
+        whitespace();
+        if(source[i]===","){i++;whitespace();continue;}
+        if(source[i]!=="}")throw new Error("Invalid object");
+      }
+      i++;
+      return obj;
+    }
+
+    if(source.slice(i,i+4)==="true"){i+=4;return true;}
+    if(source.slice(i,i+5)==="false"){i+=5;return false;}
+    if(source.slice(i,i+4)==="null"){i+=4;return null;}
+
+    const number=source.slice(i).match(/^-?\d+(?:\.\d+)?/);
+    if(number){i+=number[0].length;return Number(number[0]);}
+
+    throw new Error("Unsupported value at "+i);
+  }
+
+  const result=parseValue();
+  whitespace();
+  return result;
+}
+
+function extractQuestions(post){
+  try{
+    const arraySource=findQuestionsArray(post.content);
+    if(!arraySource)return [];
+    const parsed=parseJSValue(arraySource);
+    if(!Array.isArray(parsed))return [];
+
+    return parsed.map((q,index)=>{
+      const options=Array.isArray(q.o)?q.o:
+        Array.isArray(q.options)?q.options:[];
+
+      let answer=Number(q.a??q.answer??q.correctAnswer);
+
+      return {
+        topic:String(q.topic||q.category||"General"),
+        q:String(q.q||q.question||""),
+        o:options.map(x=>String(x)),
+        a:answer,
+        e:String(q.e||q.explanation||""),
+        p:String(q.p||q.pearl||q.clinicalPearl||""),
+        index:index
+      };
+    }).filter(q=>
+      q.q&&q.o.length>=2&&
+      Number.isInteger(q.a)&&q.a>=0&&q.a<q.o.length
+    );
+  }catch(error){
+    console.warn("Could not parse questions from:",post.title,error);
+    return [];
   }
 }
 
-/* ---------- Article and subject library ---------- */
+/* Load all Blogger posts */
+async function init(){
+  updateStats();
 
-function readableArticles(){
-  return articles.filter(a=>a.total>0);
-}
+  try{
+    const data=await loadBloggerFeed();
+    const entries=data.feed?.entry||[];
 
-function renderSubjects(){
-  const select = $("subject");
-  const subjects = new Set();
+    allPosts=entries.map(normalizePost);
 
-  readableArticles().forEach(article=>{
-    article.labels.forEach(label=>{
-      if(label.toLowerCase() !== "mcqs") subjects.add(label);
+    readingPosts=allPosts.filter(post=>
+      !post.labels.some(label=>label.toLowerCase()==="mcqs")
+    );
+
+    mcqPosts=allPosts
+      .filter(post=>post.labels.some(label=>label.toLowerCase()==="mcqs"))
+      .map(post=>({
+        ...post,
+        questions:extractQuestions(post)
+      }))
+      .filter(post=>post.questions.length>0);
+
+    renderReadingCategories();
+    renderArticles();
+    renderMcqCategories();
+    renderLessons();
+
+    const total=mcqPosts.reduce((sum,p)=>sum+p.questions.length,0);
+    console.log("Sudan Med Hub connected:",{
+      articles:readingPosts.length,
+      mcqArticles:mcqPosts.length,
+      questions:total
     });
-  });
 
-  select.innerHTML = '<option value="all">All subjects</option>';
+  }catch(error){
+    document.getElementById("articlesList").innerHTML=
+      '<div class="error">Unable to load articles. Please check your internet connection and try again.</div>';
+    document.getElementById("mcqList").innerHTML=
+      '<div class="error">Unable to connect to Blogger. Please refresh the page.</div>';
+  }
+}
 
-  [...subjects].sort().forEach(subject=>{
-    const option = document.createElement("option");
-    option.value = subject;
-    option.textContent = subject;
-    select.appendChild(option);
+/* Category handling */
+function availableCategories(posts){
+  const found=new Set();
+  posts.forEach(post=>post.labels.forEach(label=>{
+    if(label.toLowerCase()!=="mcqs")found.add(label);
+  }));
+
+  const ordered=CATEGORY_ORDER.filter(x=>found.has(x));
+  const extra=[...found].filter(x=>!CATEGORY_ORDER.includes(x));
+  return ordered.concat(extra);
+}
+
+function renderCategoryButtons(containerId,posts,selected,onSelect){
+  const container=document.getElementById(containerId);
+  const categories=availableCategories(posts);
+
+  container.innerHTML="";
+  const allButton=document.createElement("button");
+  allButton.className="chip"+(selected==="All"?" active":"");
+  allButton.textContent="All";
+  allButton.onclick=()=>onSelect("All");
+  container.appendChild(allButton);
+
+  categories.forEach(category=>{
+    const btn=document.createElement("button");
+    btn.className="chip"+(selected===category?" active":"");
+    btn.textContent=category;
+    btn.onclick=()=>onSelect(category);
+    container.appendChild(btn);
   });
 }
 
-function makeArticleElement(article){
-  const div = document.createElement("div");
-  div.className = "article";
-
-  const title = document.createElement("h3");
-  title.textContent = article.title;
-
-  const meta = document.createElement("div");
-  meta.className = "article-meta";
-  meta.textContent = article.total + " readable questions · " +
-    article.labels.filter(x=>x.toLowerCase()!=="mcqs").join(", ");
-
-  const button = document.createElement("button");
-  button.className = "primary";
-  button.textContent = article.total ? "Start quiz" : "Open article";
-  button.style.marginTop = "9px";
-
-  button.addEventListener("click",()=>{
-    if(article.total) startQuiz([article]);
-    else window.open(article.url,"_blank","noopener");
-  });
-
-  div.append(title,meta,button);
-  return div;
+function renderReadingCategories(){
+  renderCategoryButtons(
+    "readCategories",readingPosts,selectedReadCategory,
+    category=>{
+      selectedReadCategory=category;
+      renderReadingCategories();
+      renderArticles();
+    }
+  );
 }
 
+function renderMcqCategories(){
+  renderCategoryButtons(
+    "mcqCategories",mcqPosts,selectedMcqCategory,
+    category=>{
+      selectedMcqCategory=category;
+      renderMcqCategories();
+      renderLessons();
+    }
+  );
+}
+
+/* Reading library */
 function renderArticles(){
-  const home = $("homeArticles");
-  const library = $("libraryArticles");
+  const container=document.getElementById("articlesList");
 
-  home.replaceChildren();
-  library.replaceChildren();
+  const posts=readingPosts.filter(post=>
+    selectedReadCategory==="All"||
+    post.labels.includes(selectedReadCategory)
+  );
 
-  const all = readableArticles();
-
-  if(!all.length){
-    home.textContent = "No readable MCQ articles found.";
-    library.textContent = "No readable MCQ articles found.";
+  if(!posts.length){
+    container.innerHTML='<div class="empty">📚 No articles found in this category yet.</div>';
     return;
   }
 
-  all.slice(0,4).forEach(a=>home.appendChild(makeArticleElement(a)));
-  all.forEach(a=>library.appendChild(makeArticleElement(a)));
-}
+  container.innerHTML="";
 
-/* ---------- Navigation ---------- */
+  posts.forEach(post=>{
+    const card=document.createElement("article");
+    card.className="article-card";
 
-function showPage(page){
-  ["home","library","progress","quiz","result"].forEach(id=>{
-    $(id).classList.toggle("hidden",id!==page);
-  });
+    const title=document.createElement("div");
+    title.className="article-title";
+    title.textContent=post.title;
 
-  document.querySelectorAll(".tab").forEach(tab=>{
-    tab.classList.toggle("active",tab.dataset.page===page);
-  });
+    const meta=document.createElement("div");
+    meta.className="article-meta";
+    meta.textContent=formatDate(post.date);
 
-  if(page==="progress") updateStats();
-}
+    const desc=document.createElement("div");
+    desc.className="article-desc";
+    desc.textContent=post.excerpt||"Open this article to read more.";
 
-document.querySelectorAll(".tab").forEach(tab=>{
-  tab.addEventListener("click",()=>showPage(tab.dataset.page));
-});
-
-/* ---------- Quiz engine ---------- */
-
-function startQuiz(selectedArticles){
-  quizQuestions = selectedArticles.flatMap(article=>
-    article.questions.map(q=>({...q,articleTitle:article.title}))
-  );
-
-  if(!quizQuestions.length) return;
-
-  current = 0;
-  selected = null;
-  checked = false;
-  score = 0;
-  sessionCorrect = 0;
-
-  showPage("quiz");
-  renderQuestion();
-}
-
-function renderQuestion(){
-  const q = quizQuestions[current];
-  selected = null;
-  checked = false;
-
-  $("qCounter").textContent =
-    "Question " + (current+1) + " of " + quizQuestions.length;
-
-  $("qProgress").style.width =
-    (current / quizQuestions.length * 100) + "%";
-
-  $("topic").textContent = q.topic || q.articleTitle || "Medical MCQ";
-  $("qText").textContent = q.q;
-
-  $("options").replaceChildren();
-
-  q.o.forEach((option,index)=>{
-    const label = document.createElement("label");
-    label.className = "option";
-
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "answer";
-    input.value = index;
-
-    const span = document.createElement("span");
-    span.textContent = option;
-
-    input.addEventListener("change",()=>{
-      if(checked) return;
-      selected = index;
-      $("checkBtn").disabled = false;
+    const tags=document.createElement("div");
+    post.labels.filter(x=>x.toLowerCase()!=="mcqs").forEach(label=>{
+      const tag=document.createElement("span");
+      tag.className="tag";
+      tag.textContent=label;
+      tags.appendChild(tag);
     });
 
-    label.append(input,span);
-    $("options").appendChild(label);
+    card.append(title,meta,desc,tags);
+    card.onclick=()=>window.open(post.url,"_blank","noopener");
+    container.appendChild(card);
   });
-
-  $("feedback").className = "feedback";
-  $("feedback").replaceChildren();
-
-  $("checkBtn").classList.remove("hidden");
-  $("checkBtn").disabled = true;
-  $("nextBtn").classList.add("hidden");
 }
 
-function checkAnswer(){
-  if(selected===null || checked) return;
+/* MCQ lesson list */
+function renderLessons(){
+  const container=document.getElementById("mcqList");
+  container.style.display="block";
+  document.getElementById("quizArea").style.display="none";
+  container.innerHTML="";
 
-  checked = true;
-  const q = quizQuestions[current];
-  const labels = $("options").querySelectorAll(".option");
-  const correct = selected === q.a;
+  const posts=mcqPosts.filter(post=>
+    selectedMcqCategory==="All"||
+    post.labels.includes(selectedMcqCategory)
+  );
 
-  labels.forEach((label,index)=>{
-    const input = label.querySelector("input");
-    input.disabled = true;
+  if(!posts.length){
+    container.innerHTML='<div class="empty">🎯 No MCQ lessons found in this category yet.</div>';
+    return;
+  }
 
-    if(index===q.a) label.classList.add("correct");
-    else if(index===selected) label.classList.add("wrong");
+  posts.forEach(post=>{
+    const card=document.createElement("div");
+    card.className="lesson-card";
+
+    const info=document.createElement("div");
+    info.className="lesson-info";
+
+    const title=document.createElement("h3");
+    title.textContent=post.title;
+
+    const detail=document.createElement("p");
+    const category=post.labels.filter(x=>x.toLowerCase()!=="mcqs").join(" • ");
+    detail.textContent=
+      `${post.questions.length} questions`+(category?" • "+category:"");
+
+    info.append(title,detail);
+
+    const icon=document.createElement("div");
+    icon.className="lesson-icon";
+    icon.textContent="🎯";
+
+    const button=document.createElement("button");
+    button.className="primary";
+    button.textContent="Start";
+    button.onclick=()=>startLesson(post);
+
+    card.append(info,icon,button);
+    container.appendChild(card);
+  });
+}
+
+/* Quiz */
+function startLesson(post){
+  currentQuestions=post.questions;
+  currentQuestionIndex=0;
+  currentCorrect=0;
+  currentLessonTitle=post.title;
+
+  document.getElementById("mcqList").style.display="none";
+  document.getElementById("quizArea").style.display="block";
+
+  showQuestion();
+  getAudio();
+}
+
+function backToLessons(){
+  document.getElementById("quizArea").style.display="none";
+  document.getElementById("mcqList").style.display="block";
+}
+
+function showQuestion(){
+  currentAnswered=false;
+
+  const q=currentQuestions[currentQuestionIndex];
+  const total=currentQuestions.length;
+
+  document.getElementById("quizProgress").style.width=
+    (currentQuestionIndex/total*100)+"%";
+
+  document.getElementById("quizCount").textContent=
+    `${currentQuestionIndex+1}/${total}`;
+
+  document.getElementById("questionTopic").textContent=q.topic;
+  document.getElementById("questionText").textContent=q.q;
+
+  const optionsArea=document.getElementById("optionsArea");
+  optionsArea.innerHTML="";
+
+  document.getElementById("feedback").className="feedback";
+  document.getElementById("nextWrap").style.display="none";
+
+  const letters=["A","B","C","D","E","F"];
+
+  q.o.forEach((option,index)=>{
+    const button=document.createElement("button");
+    button.className="option";
+
+    const letter=document.createElement("span");
+    letter.className="option-letter";
+    letter.textContent=letters[index]||String(index+1);
+
+    const text=document.createElement("span");
+    text.textContent=option;
+
+    button.append(letter,text);
+    button.onclick=()=>chooseAnswer(index);
+    optionsArea.appendChild(button);
+  });
+}
+
+function chooseAnswer(selected){
+  if(currentAnswered)return;
+  currentAnswered=true;
+
+  const q=currentQuestions[currentQuestionIndex];
+  const buttons=[...document.querySelectorAll(".option")];
+  const isCorrect=selected===q.a;
+
+  buttons.forEach((button,index)=>{
+    button.disabled=true;
+    if(index===q.a)button.classList.add("correct");
+    if(index===selected&&!isCorrect)button.classList.add("wrong");
   });
 
-  saved.completed++;
-  if(correct){
-    score++;
-    sessionCorrect++;
-    saved.correct++;
-    saved.xp += 10;
-    saved.streak++;
-  } else {
-    saved.streak = 0;
+  progress.completed++;
+
+  const feedback=document.getElementById("feedback");
+  const title=document.getElementById("feedbackTitle");
+  const explanation=document.getElementById("feedbackText");
+  const pearl=document.getElementById("pearlText");
+
+  feedback.className="feedback show "+(isCorrect?"good":"bad");
+
+  if(isCorrect){
+    currentCorrect++;
+    progress.correct++;
+    progress.xp+=10;
+    progress.streak++;
+    progress.bestStreak=Math.max(progress.bestStreak,progress.streak);
+
+    title.textContent=randomItem([
+      "🎉 Excellent!","🥳 Amazing!","🔥 Brilliant!","💚 Correct!","🏆 Great job!"
+    ]);
+
+    explanation.textContent=
+      "That's the correct answer! You earned 10 XP. Keep your streak alive!";
+
+    playCorrectSound();
+    vibrate([40,40,70]);
+    createEmojiBurst("🎉");
+  }else{
+    progress.streak=0;
+
+    title.textContent=randomItem([
+      "😅 Not quite!","💪 Keep trying!","🤓 Good attempt!","❤️ Learn and grow!"
+    ]);
+
+    explanation.textContent=
+      "The correct answer is: "+q.o[q.a]+". Review the explanation below.";
+
+    playWrongSound();
+    vibrate([100]);
+    createEmojiBurst("💪");
   }
 
-  saveProgress();
+  pearl.innerHTML="";
 
-  const feedback = $("feedback");
-  feedback.className = "feedback show";
-
-  const result = document.createElement("strong");
-  result.textContent = correct ? "Correct! +10 XP" : "Incorrect. Correct answer: " + q.o[q.a];
-
-  const explanation = document.createElement("p");
-  explanation.textContent = q.e || "No explanation provided.";
-
-  feedback.append(result,explanation);
+  const explanationTitle=document.createElement("strong");
+  explanationTitle.textContent="Explanation: ";
+  const explanationContent=document.createElement("span");
+  explanationContent.textContent=q.e||"Review this question and its correct answer.";
+  pearl.append(explanationTitle,explanationContent);
 
   if(q.p){
-    const pearl = document.createElement("div");
-    pearl.className = "pearl";
-    const heading = document.createElement("strong");
-    heading.textContent = "Clinical Pearl: ";
-    pearl.append(heading,document.createTextNode(q.p));
-    feedback.appendChild(pearl);
+    const pearlBox=document.createElement("p");
+    pearlBox.style.margin="10px 0 0";
+    const label=document.createElement("strong");
+    label.textContent="💡 Clinical Pearl: ";
+    pearlBox.append(label,document.createTextNode(q.p));
+    pearl.appendChild(pearlBox);
   }
 
-  $("checkBtn").classList.add("hidden");
-  $("nextBtn").classList.remove("hidden");
-  $("qProgress").style.width =
-    ((current+1) / quizQuestions.length * 100) + "%";
+  document.getElementById("nextButton").textContent=
+    currentQuestionIndex===currentQuestions.length-1
+      ?"See Results 🏆":"Continue ➜";
+
+  document.getElementById("nextWrap").style.display="block";
+
+  saveProgress();
 }
 
 function nextQuestion(){
-  if(current < quizQuestions.length-1){
-    current++;
-    renderQuestion();
-  } else {
-    finishQuiz();
+  if(!currentAnswered)return;
+
+  if(currentQuestionIndex<currentQuestions.length-1){
+    currentQuestionIndex++;
+    showQuestion();
+  }else{
+    showResults();
   }
 }
 
-function finishQuiz(){
-  showPage("result");
-  $("finalScore").textContent = score + " / " + quizQuestions.length;
+function showResults(){
+  document.getElementById("quizProgress").style.width="100%";
+  document.getElementById("quizCount").textContent=
+    currentQuestions.length+"/"+currentQuestions.length;
 
-  const percentage = Math.round(score / quizQuestions.length * 100);
+  const percentage=Math.round(currentCorrect/currentQuestions.length*100);
+  let emoji="💪",message="Keep practicing. Every attempt makes you better!";
 
-  $("finalMessage").textContent =
-    percentage >= 80 ? "Excellent work! Keep it up." :
-    percentage >= 60 ? "Good effort. Review the explanations and try again." :
-    "Keep practising. Review the explanations and repeat the quiz.";
-}
-
-$("startBtn").addEventListener("click",()=>{
-  const subject = $("subject").value;
-
-  let selectedArticles = readableArticles();
-
-  if(subject && subject!=="all"){
-    selectedArticles = selectedArticles.filter(a=>a.labels.includes(subject));
+  if(percentage>=90){
+    emoji="🏆";
+    message="Outstanding performance! You are doing great!";
+  }else if(percentage>=70){
+    emoji="🥳";
+    message="Great work! Your clinical knowledge is growing!";
+  }else if(percentage>=50){
+    emoji="😊";
+    message="Good effort! Review the explanations and try again.";
   }
 
-  if(selectedArticles.length) startQuiz(selectedArticles);
-});
+  playCompleteSound();
 
-$("checkBtn").addEventListener("click",checkAnswer);
-$("nextBtn").addEventListener("click",nextQuestion);
-$("exitBtn").addEventListener("click",()=>showPage("home"));
-$("backBtn").addEventListener("click",()=>showPage("home"));
+  const card=document.querySelector("#quizArea .quiz-card");
+  card.innerHTML=`
+    <div class="result">
+      <div class="result-emoji">${emoji}</div>
+      <h2>Lesson completed!</h2>
+      <p>${escapeHTML(currentLessonTitle)}</p>
+      <div class="result-score">
+        <div style="font-size:25px">${currentCorrect}/${currentQuestions.length}</div>
+        <div>${percentage}% correct</div>
+        <div style="margin-top:8px;color:#398b00">⚡ +${currentCorrect*10} XP earned</div>
+      </div>
+      <p>${message}</p>
+      <button class="primary full" onclick="restartLesson()">🔄 Try Again</button>
+      <button class="secondary full" style="margin-top:12px" onclick="finishLesson()">Choose Another Lesson</button>
+    </div>
+  `;
+}
 
-$("resetProgress").addEventListener("click",()=>{
-  if(!confirm("Reset all your saved learning progress?")) return;
+function restartLesson(){
+  const post=mcqPosts.find(p=>p.title===currentLessonTitle);
+  if(post){
+    document.querySelector("#quizArea .quiz-card").innerHTML=`
+      <div class="topic-label" id="questionTopic"></div>
+      <div class="question" id="questionText"></div>
+      <div id="optionsArea"></div>
+      <div class="feedback" id="feedback">
+        <h3 id="feedbackTitle"></h3>
+        <p id="feedbackText"></p>
+        <div class="pearl" id="pearlText"></div>
+      </div>
+      <div class="next-wrap" id="nextWrap" style="display:none">
+        <button class="primary full" id="nextButton" onclick="nextQuestion()">Continue ➜</button>
+      </div>
+    `;
+    startLesson(post);
+  }
+}
 
-  saved = {xp:0,completed:0,correct:0,streak:0};
-  saveProgress();
-});
+function finishLesson(){
+  const card=document.querySelector("#quizArea .quiz-card");
+  card.innerHTML=`
+    <div class="topic-label" id="questionTopic"></div>
+    <div class="question" id="questionText"></div>
+    <div id="optionsArea"></div>
+    <div class="feedback" id="feedback">
+      <h3 id="feedbackTitle"></h3>
+      <p id="feedbackText"></p>
+      <div class="pearl" id="pearlText"></div>
+    </div>
+    <div class="next-wrap" id="nextWrap" style="display:none">
+      <button class="primary full" id="nextButton" onclick="nextQuestion()">Continue ➜</button>
+    </div>
+  `;
+  backToLessons();
+}
 
-initialize();
+function randomItem(items){
+  return items[Math.floor(Math.random()*items.length)];
+}
 
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./service-worker.js")
-      .catch(error=>console.warn("Service worker:",error));
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#039;"
+  }[char]));
+}
+
+function formatDate(date){
+  if(!date)return "Sudan Med Hub";
+  const d=new Date(date);
+  if(Number.isNaN(d.getTime()))return "Sudan Med Hub";
+  return d.toLocaleDateString(undefined,{
+    year:"numeric",month:"short",day:"numeric"
   });
 }
+
+/* Emoji celebration */
+function createEmojiBurst(emoji){
+  const symbols=[emoji,"✨","⭐","💚"];
+  for(let i=0;i<7;i++){
+    const item=document.createElement("div");
+    item.textContent=randomItem(symbols);
+    item.style.position="fixed";
+    item.style.left=(15+Math.random()*70)+"%";
+    item.style.top=(35+Math.random()*35)+"%";
+    item.style.fontSize=(20+Math.random()*15)+"px";
+    item.style.pointerEvents="none";
+    item.style.zIndex="9999";
+    item.style.transition="all 1s ease";
+    document.body.appendChild(item);
+
+    requestAnimationFrame(()=>{
+      item.style.transform=`translateY(-${70+Math.random()*100}px) rotate(${Math.random()*80-40}deg)`;
+      item.style.opacity="0";
+    });
+
+    setTimeout(()=>item.remove(),1100);
+  }
+}
+
+/* Start */
+init();
 </script>
 </body>
 </html>
