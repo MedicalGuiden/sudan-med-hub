@@ -4,802 +4,979 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#58cc02">
-<meta name="description" content="Sudan Med Hub - Interactive medical learning and MCQs">
+<meta name="theme-color" content="#102b46">
 <title>Sudan Med Hub</title>
 <link rel="manifest" href="./manifest.json">
 
 <style>
 :root{
- --green:#58cc02;
- --dark-green:#46a302;
- --blue:#1cb0f6;
- --red:#ff4b4b;
- --gold:#ffc800;
- --bg:#f7f9fc;
- --text:#263238;
- --muted:#87929e;
- --border:#e5eaf0;
+  --navy:#102b46;
+  --teal:#087e83;
+  --bg:#f3f6fa;
+  --card:#fff;
+  --text:#243247;
+  --muted:#718096;
+  --green:#20965c;
+  --red:#d94b45;
+  --border:#e1e8ef;
 }
 *{box-sizing:border-box}
 body{
- margin:0;
- background:var(--bg);
- color:var(--text);
- font-family:Arial, sans-serif;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
-button,input{font:inherit}
-button{cursor:pointer}
-.app{max-width:1100px;margin:auto;padding:16px}
+button{font:inherit;cursor:pointer}
 header{
- display:flex;justify-content:space-between;
- align-items:center;gap:12px;margin-bottom:22px;
+  background:var(--navy);
+  color:white;
+  padding:17px 18px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 3px 12px #0002;
 }
-.brand{display:flex;align-items:center;gap:10px;font-weight:bold;font-size:20px}
+.header-inner{
+  max-width:950px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px}
 .logo{
- width:43px;height:43px;background:var(--green);
- color:white;border-radius:14px;
- display:grid;place-items:center;font-size:25px;
- box-shadow:0 4px 0 var(--dark-green);
+  width:42px;height:42px;border-radius:12px;
+  background:var(--teal);
+  display:grid;place-items:center;font-size:23px;
 }
-.stats{display:flex;gap:8px;align-items:center}
-.stat{
- background:white;border:1px solid var(--border);
- border-radius:12px;padding:9px 12px;font-weight:bold;
+.brand h1{font-size:18px;margin:0}
+.brand small{font-size:11px;color:#c5d5e4}
+.stats{display:flex;gap:10px;font-size:13px}
+.stat{background:#ffffff17;padding:8px 10px;border-radius:10px}
+main{max-width:950px;margin:auto;padding:20px 15px 100px}
+nav{
+  display:flex;gap:8px;overflow:auto;
+  padding:10px 0 17px;
 }
-.layout{display:grid;grid-template-columns:220px 1fr;gap:18px}
-.sidebar,.main{
- background:white;border:1px solid var(--border);
- border-radius:18px;padding:18px;
+nav button{
+  border:0;background:white;color:var(--navy);
+  padding:11px 17px;border-radius:10px;white-space:nowrap;
+  font-weight:bold;
 }
-.sidebar h4{color:var(--muted);font-size:12px}
-.nav{display:grid;gap:9px}
-.nav button{
- border:0;padding:13px;border-radius:12px;
- background:#f5f7fa;text-align:left;font-weight:bold;
-}
-.nav button.active{background:#e9f9dc;color:#347b00}
+nav button.active{background:var(--teal);color:white}
 .hero{
- background:linear-gradient(120deg,#e9f9dc,#effaff);
- border-radius:17px;padding:23px;margin-bottom:18px;
+  background:linear-gradient(130deg,#102b46,#087e83);
+  color:white;border-radius:18px;padding:25px 21px;
+  margin-bottom:18px;
 }
-.hero h1{margin:0 0 8px;font-size:28px}
-.hero p{margin:0;color:#657585;line-height:1.6}
-.toolbar{display:flex;gap:9px;margin-bottom:15px}
+.hero h2{font-size:25px;margin:0 0 9px}
+.hero p{margin:0;color:#e1f3f3;line-height:1.6}
+.section-title{font-size:20px;margin:23px 0 12px}
+.panel,.article-card,.quiz-card,.progress-card{
+  background:white;border:1px solid var(--border);
+  border-radius:15px;padding:17px;margin-bottom:13px;
+}
+.article-card h3{font-size:17px;margin:0 0 8px}
+.article-card p{font-size:13px;color:var(--muted);margin:5px 0}
+.article-meta{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.tag{
+  font-size:11px;background:#edf5f6;color:var(--teal);
+  border-radius:20px;padding:5px 9px;
+}
+.primary,.secondary{
+  border:0;border-radius:10px;padding:12px 17px;
+  font-weight:bold;
+}
+.primary{background:var(--teal);color:white}
+.secondary{background:#eaf0f4;color:var(--navy)}
+button:disabled{opacity:.5;cursor:not-allowed}
 .search{
- flex:1;min-width:0;padding:12px;
- border:1px solid var(--border);border-radius:12px;
+  width:100%;padding:13px;border:1px solid var(--border);
+  border-radius:11px;font-size:15px;margin-bottom:12px;
 }
-.primary{
- background:var(--green);color:white;border:0;
- border-radius:12px;padding:12px 18px;font-weight:bold;
- box-shadow:0 4px 0 var(--dark-green);
+.empty{text-align:center;padding:35px 15px;color:var(--muted)}
+.empty strong{display:block;color:var(--text);margin:10px}
+.loading{
+  text-align:center;padding:25px;color:var(--muted)
 }
-.primary:disabled{opacity:.45;cursor:not-allowed}
-.secondary{
- background:white;border:1px solid var(--border);
- border-radius:12px;padding:10px 14px;font-weight:bold;
+.progress-wrap{
+  height:9px;background:#e8edf2;border-radius:20px;
+  overflow:hidden;margin:12px 0;
 }
-.course-list{display:grid;gap:11px}
-.course{
- display:flex;align-items:center;gap:13px;
- border:1px solid var(--border);border-radius:15px;padding:14px;
+.progress-bar{
+  height:100%;width:0;background:var(--teal);
+  transition:width .3s;
 }
-.course-icon{
- width:48px;height:48px;border-radius:14px;
- background:#eef8e8;display:grid;place-items:center;
- font-size:23px;flex-shrink:0;
+.quiz-top{
+  display:flex;justify-content:space-between;
+  gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted);
 }
-.course-info{flex:1;min-width:0}
-.course h3{margin:0 0 5px;font-size:16px}
-.course p{margin:0;color:var(--muted);font-size:13px}
-.small{font-size:12px;color:var(--muted)}
-.hidden{display:none!important}
-.quiz-top{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.progress{
- flex:1;height:10px;background:#e9eef2;
- border-radius:20px;overflow:hidden;
+.quiz-question{
+  font-size:19px;font-weight:bold;line-height:1.6;
+  margin:20px 0;
 }
-.progress-fill{
- height:100%;width:0;background:var(--green);
- transition:.3s;
-}
-.question-number{font-weight:bold;color:var(--muted);font-size:13px}
-.topic{
- display:inline-block;background:#eef8e8;
- color:#397b0c;padding:6px 11px;
- border-radius:20px;font-size:12px;font-weight:bold;
-}
-.question{
- font-size:22px;font-weight:bold;
- line-height:1.5;margin:17px 0;
-}
-.options{display:grid;gap:10px}
 .option{
- display:flex;align-items:flex-start;gap:12px;
- width:100%;text-align:left;background:white;
- border:2px solid var(--border);
- border-radius:13px;padding:13px;
- font-weight:bold;color:var(--text);
+  display:flex;align-items:flex-start;gap:11px;
+  width:100%;text-align:left;padding:14px;
+  background:white;border:1px solid var(--border);
+  border-radius:11px;margin:9px 0;color:var(--text);
+  line-height:1.5;
 }
-.option:hover{border-color:var(--blue)}
-.option.selected{border-color:var(--blue);background:#effaff}
-.option.correct{border-color:var(--green);background:#f0fbe8}
-.option.wrong{border-color:var(--red);background:#fff1f1}
-.letter{
- width:27px;height:27px;border-radius:8px;
- background:#f0f3f6;display:grid;place-items:center;
- flex-shrink:0;
+.option .letter{
+  width:26px;height:26px;flex-shrink:0;
+  display:grid;place-items:center;
+  background:#edf3f6;border-radius:7px;
+  font-weight:bold;color:var(--navy);
 }
+.option.correct{background:#e8f7ee;border-color:var(--green)}
+.option.wrong{background:#fff0ef;border-color:var(--red)}
+.option.correct .letter{background:var(--green);color:white}
+.option.wrong .letter{background:var(--red);color:white}
 .feedback{
- margin-top:17px;padding:16px;
- border-radius:14px;background:#f4f8fb;
- border:1px solid var(--border);line-height:1.7;
+  display:none;padding:15px;border-radius:12px;
+  margin-top:16px;line-height:1.65;
 }
-.feedback.good{background:#f0fbe8;border-color:#b9e99c}
-.feedback.bad{background:#fff1f1;border-color:#ffc1c1}
+.feedback.show{display:block}
+.feedback.good{background:#e8f7ee;border-left:4px solid var(--green)}
+.feedback.bad{background:#fff0ef;border-left:4px solid var(--red)}
+.feedback h4{margin:0 0 7px}
 .pearl{
- background:#fff9df;border-left:4px solid var(--gold);
- padding:11px;margin-top:12px;border-radius:5px;
+  background:#fff7e7;padding:11px;border-radius:8px;
+  margin-top:12px;border-left:4px solid #e4a52b;
 }
-.actions{
- display:flex;justify-content:space-between;
- gap:10px;margin-top:20px;
+.quiz-actions{
+  display:flex;justify-content:space-between;
+  gap:10px;margin-top:18px;flex-wrap:wrap;
 }
-.empty{text-align:center;padding:30px 12px}
-.empty-icon{font-size:42px}
-.footer{text-align:center;color:var(--muted);font-size:12px;padding:22px}
-@media(max-width:700px){
- .app{padding:11px}
- .layout{grid-template-columns:1fr}
- .sidebar{padding:11px}
- .sidebar h4{display:none}
- .nav{grid-template-columns:repeat(3,1fr)}
- .nav button{text-align:center;padding:11px 5px;font-size:13px}
- .hero{padding:18px}
- .hero h1{font-size:23px}
- .main{padding:14px}
- .question{font-size:19px}
- .brand{font-size:16px}
- .stat{padding:7px 9px;font-size:13px}
+.result-score{
+  font-size:35px;font-weight:bold;color:var(--teal);
+  margin:10px 0;
+}
+.hidden{display:none!important}
+footer{
+  text-align:center;color:var(--muted);
+  padding:25px 10px;font-size:12px;
+}
+@media(max-width:550px){
+  main{padding:14px 12px 90px}
+  .hero h2{font-size:22px}
+  .stats{gap:5px;font-size:11px}
+  .stat{padding:7px}
+  .quiz-question{font-size:17px}
 }
 </style>
 </head>
 
 <body>
-<div class="app">
 
 <header>
- <div class="brand">
-  <div class="logo">✚</div>
-  <div>Sudan Med Hub<div class="small">Learn • Practice • Improve</div></div>
- </div>
- <div class="stats">
-  <div class="stat">⚡ <span id="xp">0</span></div>
-  <div class="stat">🔥 <span id="streak">0</span></div>
-  <button class="secondary" id="sound">🔊</button>
+ <div class="header-inner">
+  <div class="brand">
+   <div class="logo">✚</div>
+   <div>
+    <h1>Sudan Med Hub</h1>
+    <small>Learn • Practice • Improve</small>
+   </div>
+  </div>
+  <div class="stats">
+   <div class="stat">⚡ <span id="xp">0</span></div>
+   <div class="stat">🔥 <span id="streak">0</span></div>
+  </div>
  </div>
 </header>
 
-<div class="layout">
+<main>
 
-<aside class="sidebar">
- <h4>YOUR LEARNING HUB</h4>
- <nav class="nav">
-  <button class="active" data-page="home">🏠 Learn</button>
-  <button data-page="library">📚 Library</button>
-  <button data-page="progress">🏆 Progress</button>
- </nav>
-</aside>
+<nav>
+ <button class="active" data-page="home">🏠 Learn</button>
+ <button data-page="library">📚 Library</button>
+ <button data-page="progress">🏆 Progress</button>
+</nav>
 
-<main class="main">
-
-<section id="homePage">
+<section id="home-page">
  <div class="hero">
-  <h1>Build your clinical knowledge.</h1>
+  <h2>Build your clinical knowledge.</h2>
   <p>Practice medical questions, improve your clinical reasoning and track your progress.</p>
  </div>
 
- <div class="toolbar">
-  <input class="search" id="search" placeholder="Search topics and MCQs...">
-  <button class="secondary" id="refresh">↻</button>
+ <div class="panel">
+  <div style="display:flex;justify-content:space-between;gap:10px">
+   <strong>Learning Library</strong>
+   <button class="secondary" id="refresh">↻ Refresh</button>
+  </div>
+  <div class="progress-wrap">
+   <div class="progress-bar" id="library-progress"></div>
+  </div>
+  <div id="feed-status" style="font-size:13px;color:var(--muted)">
+   Connecting to Blogger...
+  </div>
  </div>
 
- <p class="small" id="status">Connecting to Blogger...</p>
- <div class="course-list" id="courses"></div>
+ <h2 class="section-title">Your MCQ Articles</h2>
+ <div id="home-articles" class="loading">Loading articles...</div>
 </section>
 
-<section id="libraryPage" class="hidden">
+<section id="library-page" class="hidden">
+ <h2 class="section-title">Medical Library</h2>
+ <input id="search" class="search" placeholder="Search articles or subjects...">
+ <div id="categories"></div>
+ <div id="library-articles" class="loading">Loading...</div>
+</section>
+
+<section id="progress-page" class="hidden">
+ <h2 class="section-title">Your Progress</h2>
+ <div class="progress-card">
+  <p>Total XP</p>
+  <div class="result-score" id="total-xp">0</div>
+ </div>
+ <div class="progress-card">
+  <p>Questions answered correctly</p>
+  <div class="result-score" id="total-correct">0</div>
+ </div>
+ <div class="progress-card">
+  <p>Articles completed</p>
+  <div class="result-score" id="completed">0</div>
+ </div>
+ <div class="progress-card">
+  <p>Current streak</p>
+  <div class="result-score" id="progress-streak">0 days</div>
+ </div>
+</section>
+
+<section id="quiz-page" class="hidden">
+ <button class="secondary" id="back-library">← Back to library</button>
+ <div class="panel" style="margin-top:14px">
+  <div class="quiz-top">
+   <span id="quiz-title">Medical MCQs</span>
+   <span id="quiz-counter">Question 1</span>
+  </div>
+  <div class="progress-wrap">
+   <div class="progress-bar" id="quiz-progress"></div>
+  </div>
+  <div class="quiz-question" id="question-text"></div>
+  <div id="options"></div>
+  <div class="feedback" id="feedback">
+   <h4 id="feedback-title"></h4>
+   <div id="explanation"></div>
+   <div class="pearl" id="pearl"></div>
+  </div>
+  <div class="quiz-actions">
+   <span id="quiz-score" style="font-size:13px;color:var(--muted)">Score: 0</span>
+   <button class="primary" id="next-question" disabled>Continue →</button>
+  </div>
+ </div>
+</section>
+
+<section id="result-page" class="hidden">
  <div class="hero">
-  <h1>Question Library</h1>
-  <p>Explore all available MCQ articles.</p>
+  <h2>Lesson completed! 🎉</h2>
+  <p>Keep learning and improving your clinical knowledge.</p>
  </div>
- <div class="course-list" id="library"></div>
-</section>
-
-<section id="progressPage" class="hidden">
- <div class="hero">
-  <h1>Your Progress 🏆</h1>
-  <p>Your learning progress is saved on this device.</p>
- </div>
- <div class="course-list">
-  <div class="course">
-   <div class="course-icon">⚡</div>
-   <div class="course-info"><h3>Total XP</h3><p id="totalXP">0 XP</p></div>
-  </div>
-  <div class="course">
-   <div class="course-icon">🔥</div>
-   <div class="course-info"><h3>Study streak</h3><p id="totalStreak">0 days</p></div>
-  </div>
-  <div class="course">
-   <div class="course-icon">🎯</div>
-   <div class="course-info"><h3>Questions answered</h3><p id="totalAnswered">0</p></div>
-  </div>
+ <div class="panel" style="text-align:center">
+  <div>Your score</div>
+  <div class="result-score" id="final-score">0 / 0</div>
+  <p id="final-message"></p>
+  <button class="primary" id="retry">Try again</button>
+  <button class="secondary" id="result-library">Library</button>
  </div>
 </section>
 
-<section id="quizPage" class="hidden">
- <div class="quiz-top">
-  <div class="progress"><div class="progress-fill" id="bar"></div></div>
-  <span class="question-number" id="counter"></span>
-  <button class="secondary" id="exit">✕</button>
- </div>
- <div id="quizContent"></div>
-</section>
-
+<footer>© 2026 Sudan Med Hub · Medical learning platform</footer>
 </main>
-</div>
-
-<div class="footer">© <span id="year"></span> Sudan Med Hub</div>
-</div>
 
 <script>
-(() => {
 "use strict";
 
-const BLOG="https://sudanmedic.blogspot.com";
-const FEED=BLOG+"/feeds/posts/default?alt=json&max-results=150";
+/* ================= CONFIGURATION ================= */
 
-const $=id=>document.getElementById(id);
+const BLOG = "https://sudanmedic.blogspot.com";
+const FEED = BLOG + "/feeds/posts/default?alt=json&max-results=150";
 
-let posts=[];
-let currentSet=null;
-let questionIndex=0;
-let selected=null;
-let checked=false;
-let answers=[];
-let soundOn=true;
+const STORAGE_KEY = "smh_user_progress_v2";
 
-let progress=loadProgress();
+let articles = [];
+let currentQuestions = [];
+let currentArticle = null;
+let questionIndex = 0;
+let score = 0;
+let answered = false;
+let selectedCategory = "All";
+
+let userData = loadProgress();
 
 function loadProgress(){
  try{
-  return JSON.parse(localStorage.getItem("smh_progress"))||
-  {xp:0,streak:0,lastDay:"",answered:0};
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+   xp:0,
+   correct:0,
+   completed:[],
+   streak:0,
+   lastDate:""
+  };
  }catch(e){
-  return {xp:0,streak:0,lastDay:"",answered:0};
+  return {xp:0,correct:0,completed:[],streak:0,lastDate:""};
  }
 }
 
 function saveProgress(){
- localStorage.setItem("smh_progress",JSON.stringify(progress));
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(userData));
  updateStats();
 }
 
 function updateStats(){
- $("xp").textContent=progress.xp;
- $("streak").textContent=progress.streak;
- $("totalXP").textContent=progress.xp+" XP";
- $("totalStreak").textContent=progress.streak+" days";
- $("totalAnswered").textContent=progress.answered;
+ document.getElementById("xp").textContent=userData.xp;
+ document.getElementById("streak").textContent=userData.streak;
+ document.getElementById("total-xp").textContent=userData.xp;
+ document.getElementById("total-correct").textContent=userData.correct;
+ document.getElementById("completed").textContent=userData.completed.length;
+ document.getElementById("progress-streak").textContent=userData.streak+" days";
 }
 
-function beep(type){
- if(!soundOn)return;
- try{
-  const ctx=new(window.AudioContext||window.webkitAudioContext)();
-  const osc=ctx.createOscillator();
-  const gain=ctx.createGain();
+function recordActivity(){
+ const today=new Date().toLocaleDateString("en-CA");
+ if(userData.lastDate===today)return;
 
-  const frequencies={
-   click:420,correct:720,wrong:180,next:520,complete:880
-  };
+ const yesterday=new Date();
+ yesterday.setDate(yesterday.getDate()-1);
+ const yesterdayKey=yesterday.toLocaleDateString("en-CA");
 
-  osc.type="sine";
-  osc.frequency.value=frequencies[type]||440;
-  osc.connect(gain);
-  gain.connect(ctx.destination);
+ userData.streak=userData.lastDate===yesterdayKey
+  ? userData.streak+1 : 1;
 
-  gain.gain.setValueAtTime(.001,ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(.1,ctx.currentTime+.02);
-  gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.18);
-
-  osc.start();
-  osc.stop(ctx.currentTime+.2);
-  osc.onended=()=>ctx.close();
- }catch(e){}
+ userData.lastDate=today;
 }
 
-function jsonp(url){
- return new Promise((resolve,reject)=>{
-  const callback="smh_"+Math.random().toString(36).slice(2);
-  const script=document.createElement("script");
+/* ================= BLOGGER FEED ================= */
 
-  const timer=setTimeout(()=>{
-   cleanup();
-   reject(new Error("Feed request timed out"));
-  },15000);
+function loadFeed(){
+ const status=document.getElementById("feed-status");
+ status.textContent="Connecting to Blogger...";
 
-  function cleanup(){
-   clearTimeout(timer);
-   delete window[callback];
-   script.remove();
+ const callback="smhCallback_"+Date.now();
+ const script=document.createElement("script");
+
+ const timeout=setTimeout(()=>{
+  cleanup();
+  status.textContent="Could not connect to Blogger. Please refresh.";
+ },20000);
+
+ function cleanup(){
+  clearTimeout(timeout);
+  script.remove();
+  try{delete window[callback]}catch(e){}
+ }
+
+ window[callback]=function(data){
+  cleanup();
+
+  try{
+   const entries=data.feed.entry||[];
+   articles=entries.map(normalizeEntry);
+   articles=articles.filter(a=>a.title && a.url);
+
+   renderArticles();
+   status.textContent=
+    articles.filter(a=>a.questions.length).length+
+    " readable MCQ articles · "+
+    articles.length+" total articles";
+
+   document.getElementById("library-progress").style.width=
+    (articles.length ? 100 : 0)+"%";
+
+  }catch(error){
+   console.error(error);
+   status.textContent="Unable to process Blogger feed.";
   }
+ };
 
-  window[callback]=data=>{
-   cleanup();
-   resolve(data);
-  };
-
-  script.onerror=()=>{
-   cleanup();
-   reject(new Error("Unable to load Blogger feed"));
-  };
-
-  script.src=url+"&callback="+callback;
-  document.head.appendChild(script);
- });
+ script.src=FEED+"&callback="+callback;
+ script.onerror=function(){
+  cleanup();
+  status.textContent="Blogger feed connection failed.";
+ };
+ document.body.appendChild(script);
 }
 
-/* Safe parser for the limited JavaScript object format used
-   in the existing questions array. It never executes article code. */
+function normalizeEntry(entry){
+ const title=entry.title?.$t||"Untitled";
+ const content=entry.content?.$t||entry.summary?.$t||"";
 
-function parseQuestions(source){
- const match=/\b(?:const|let|var)\s+questions\s*=\s*\[/.exec(source);
- if(!match)return null;
+ const linkEntry=(entry.link||[]).find(
+  link=>link.rel==="alternate"
+ );
 
- let i=source.indexOf("[",match.index);
+ const url=linkEntry?.href||BLOG;
+
+ const labels=(entry.category||[]).map(
+  category=>category.term
+ );
+
+ const questions=extractQuestions(content);
+
+ return {title,content,url,labels,questions};
+}
+
+/* ================= SAFE QUESTION EXTRACTION ================= */
+
+/*
+ Supports:
+ const questions = [...]
+ let questions=[...]
+ var questions = [...]
+ Also accepts spaces and line breaks around "=".
+*/
+
+function extractQuestions(source){
+ if(!source)return [];
+
+ const decoded=decodeContent(source);
+
+ const match=decoded.match(
+  /\b(?:const|let|var)\s+questions\s*=\s*(\[[\s\S]*?\])\s*;/
+ );
+
+ if(!match)return [];
+
+ try{
+  const parsed=parseJSArray(match[1]);
+
+  if(!Array.isArray(parsed))return [];
+
+  return parsed
+   .filter(isValidQuestion)
+   .map(q=>({
+    topic:String(q.topic||"General"),
+    q:String(q.q||""),
+    o:q.o.map(String),
+    a:Number(q.a),
+    e:String(q.e||""),
+    p:String(q.p||"")
+   }));
+
+ }catch(error){
+  console.warn("Question parsing failed:",error);
+  return [];
+ }
+}
+
+function decodeContent(value){
+ return String(value)
+  .replace(/&quot;/g,'"')
+  .replace(/&#34;/g,'"')
+  .replace(/&#39;/g,"'")
+  .replace(/&apos;/g,"'")
+  .replace(/&amp;/g,"&")
+  .replace(/&lt;/g,"<")
+  .replace(/&gt;/g,">")
+  .replace(/&#(\d+);/g,(m,n)=>String.fromCharCode(Number(n)));
+}
+
+/*
+ A small parser for JSON-compatible JavaScript array literals.
+ Does not use eval() or Function().
+*/
+
+function parseJSArray(source){
+ let i=0;
 
  function whitespace(){
-  while(/\s|,/.test(source[i]||""))i++;
+  while(/\s/.test(source[i]||""))i++;
  }
 
- function readString(){
+ function string(){
   const quote=source[i++];
   let result="";
+
   while(i<source.length){
    let c=source[i++];
-   if(c===quote)return result;
-   if(c==="\\"){
-    const n=source[i++];
-    const escapes={n:"\n",r:"\r",t:"\t",b:"\b",f:"\f"};
-    result+=escapes[n]??n;
-   }else result+=c;
-  }
-  throw Error("Unclosed string");
- }
 
- function readWord(){
-  const m=source.slice(i).match(/^[A-Za-z_$][\w$]*/);
-  if(!m)throw Error("Invalid token");
-  i+=m[0].length;
-  return m[0];
+   if(c===quote)return result;
+
+   if(c==="\\"){
+    let next=source[i++];
+
+    const escapes={
+     n:"\n",r:"\r",t:"\t",
+     b:"\b",f:"\f",
+     '"':'"',
+     "'":"' ",
+     "\\":"\\"
+    };
+
+    if(next==="u"){
+     const hex=source.slice(i,i+4);
+     if(!/^[0-9a-f]{4}$/i.test(hex))
+      throw Error("Invalid Unicode escape");
+     result+=String.fromCharCode(parseInt(hex,16));
+     i+=4;
+    }else{
+     result+=Object.prototype.hasOwnProperty.call(escapes,next)
+      ? escapes[next] : next;
+    }
+   }else{
+    result+=c;
+   }
+  }
+
+  throw Error("Unclosed string");
  }
 
  function value(){
   whitespace();
   const c=source[i];
 
-  if(c==="'"||c==='"')return readString();
+  if(c==="[" )return array();
+  if(c==="{")return object();
+  if(c==='"'||c==="'")return string();
 
-  if(c==="["){
-   i++;
-   const arr=[];
-   whitespace();
-   while(source[i]!=="]"){
-    arr.push(value());
-    whitespace();
-    if(source[i]===","){i++;whitespace()}
-    else if(source[i]!=="]")throw Error("Expected comma");
-   }
-   i++;
-   return arr;
-  }
+  const start=i;
+  while(i<source.length && /[A-Za-z0-9_.+-]/.test(source[i]))i++;
 
-  if(c==="{"){
-   i++;
-   const obj={};
-   whitespace();
+  const word=source.slice(start,i);
 
-   while(source[i]!=="}"){
-    whitespace();
-
-    const key=(source[i]==="'"||source[i]==='"')
-      ?readString():readWord();
-
-    whitespace();
-    if(source[i++]!==":")throw Error("Expected colon");
-
-    obj[key]=value();
-    whitespace();
-
-    if(source[i]===","){i++;whitespace()}
-    else if(source[i]!=="}")throw Error("Expected comma");
-   }
-
-   i++;
-   return obj;
-  }
-
-  if(/[-0-9]/.test(c)){
-   const m=source.slice(i).match(/^-?\d+(?:\.\d+)?/);
-   if(!m)throw Error("Invalid number");
-   i+=m[0].length;
-   return Number(m[0]);
-  }
-
-  const word=readWord();
   if(word==="true")return true;
   if(word==="false")return false;
   if(word==="null")return null;
+  if(word==="undefined")return null;
 
-  throw Error("Unsupported value");
+  if(word!=="" && !Number.isNaN(Number(word)))
+   return Number(word);
+
+  throw Error("Unsupported value: "+word);
  }
 
- try{
-  const questions=value();
+ function array(){
+  if(source[i++]!=="[")throw Error("Expected array");
+  const result=[];
+  whitespace();
 
-  if(!Array.isArray(questions)||!questions.length)return null;
+  if(source[i]==="]"){i++;return result;}
 
-  const valid=questions.every(q=>
-   q&&typeof q.q==="string"&&
-   Array.isArray(q.o)&&
-   Number.isInteger(q.a)&&
-   q.a>=0&&q.a<q.o.length
-  );
+  while(i<source.length){
+   result.push(value());
+   whitespace();
 
-  return valid?questions:null;
- }catch(error){
-  console.warn("Question parser:",error);
-  return null;
- }
-}
+   if(source[i]===","){
+    i++;
+    whitespace();
+    if(source[i]==="]"){i++;return result;}
+    continue;
+   }
 
-function extractQuestions(html){
- if(!html)return null;
+   if(source[i]==="]"){i++;return result;}
 
- const decoded=html
-  .replace(/&quot;/g,'"')
-  .replace(/&#39;/g,"'")
-  .replace(/&amp;/g,"&");
-
- return parseQuestions(decoded);
-}
-
-function normalizeEntry(entry){
- const alternate=(entry.link||[]).find(x=>x.rel==="alternate");
-
- const content=
-  entry.content?.$t||
-  entry.summary?.$t||
-  "";
-
- return {
-  title:entry.title?.$t||"Untitled article",
-  url:alternate?.href||BLOG,
-  date:entry.published?.$t||"",
-  labels:(entry.category||[]).map(x=>x.term),
-  questions:extractQuestions(content)
- };
-}
-
-async function loadBlogger(){
- $("status").textContent="Loading articles from Blogger...";
- $("courses").innerHTML="";
-
- try{
-  const data=await jsonp(FEED);
-  posts=(data.feed.entry||[]).map(normalizeEntry);
-
-  const sets=posts.filter(p=>p.questions);
-
-  $("status").textContent=
-   `${sets.length} MCQ articles found · ${posts.length} total articles`;
-
-  renderCourses(sets);
-  renderLibrary(sets);
-
-  if(!sets.length){
-   $("courses").innerHTML=`
-    <div class="empty">
-     <div class="empty-icon">📭</div>
-     <h3>No readable MCQ articles found</h3>
-     <p class="small">
-      Blogger returned articles, but the questions array
-      was not detected in the feed content.
-     </p>
-    </div>`;
+   throw Error("Expected comma or closing bracket");
   }
 
- }catch(error){
-  $("status").textContent="Blogger connection failed: "+error.message;
-  $("courses").innerHTML=`
-   <div class="empty">
-    <div class="empty-icon">⚠️</div>
-    <h3>Connection problem</h3>
-    <button class="primary" onclick="location.reload()">Try again</button>
-   </div>`;
+  throw Error("Unclosed array");
  }
+
+ function object(){
+  if(source[i++]!=="{")throw Error("Expected object");
+  const result={};
+  whitespace();
+
+  if(source[i]==="}"){i++;return result;}
+
+  while(i<source.length){
+   whitespace();
+
+   let key;
+
+   if(source[i]==="'"||source[i]==='"'){
+    key=string();
+   }else{
+    const start=i;
+    while(i<source.length && /[\w$]/.test(source[i]))i++;
+    key=source.slice(start,i);
+   }
+
+   if(!key)throw Error("Invalid object key");
+
+   whitespace();
+
+   if(source[i++]!==":")throw Error("Expected colon");
+
+   result[key]=value();
+   whitespace();
+
+   if(source[i]===","){
+    i++;
+    whitespace();
+    if(source[i]==="}"){i++;return result;}
+    continue;
+   }
+
+   if(source[i]==="}"){i++;return result;}
+
+   throw Error("Expected object comma or closing brace");
+  }
+
+  throw Error("Unclosed object");
+ }
+
+ const result=value();
+ whitespace();
+
+ if(i!==source.length)
+  throw Error("Unexpected trailing content");
+
+ return result;
 }
 
-function createCard(post){
- const card=document.createElement("div");
- card.className="course";
-
- const icon=document.createElement("div");
- icon.className="course-icon";
- icon.textContent="🩺";
-
- const info=document.createElement("div");
- info.className="course-info";
-
- const title=document.createElement("h3");
- title.textContent=post.title;
-
- const description=document.createElement("p");
- description.textContent=
-  `${post.questions.length} questions · ${post.labels.join(", ")||"Medical"}`;
-
- info.append(title,description);
-
- const button=document.createElement("button");
- button.className="primary";
- button.textContent="Start";
- button.onclick=()=>startQuiz(post);
-
- card.append(icon,info,button);
- return card;
+function isValidQuestion(q){
+ return q &&
+  typeof q==="object" &&
+  typeof q.q==="string" &&
+  Array.isArray(q.o) &&
+  q.o.length>=2 &&
+  Number.isInteger(Number(q.a)) &&
+  Number(q.a)>=0 &&
+  Number(q.a)<q.o.length;
 }
 
-function renderCourses(sets){
- const term=$("search").value.toLowerCase();
+/* ================= ARTICLE DISPLAY ================= */
 
- $("courses").innerHTML="";
- sets.filter(p=>
-  (p.title+" "+p.labels.join(" ")).toLowerCase().includes(term)
- ).forEach(p=>$("courses").appendChild(createCard(p)));
+function renderArticles(){
+ renderArticleList(
+  document.getElementById("home-articles"),
+  articles
+ );
+
+ renderLibrary();
 }
 
-function renderLibrary(sets){
- $("library").innerHTML="";
- sets.forEach(p=>$("library").appendChild(createCard(p)));
+function renderArticleList(container,list){
+ container.innerHTML="";
+
+ if(!list.length){
+  container.innerHTML=
+   '<div class="empty">📭<strong>No articles found</strong>Try refreshing the feed.</div>';
+  return;
+ }
+
+ list.forEach(article=>{
+  const card=document.createElement("div");
+  card.className="article-card";
+
+  const title=document.createElement("h3");
+  title.textContent=article.title;
+  card.appendChild(title);
+
+  const meta=document.createElement("div");
+  meta.className="article-meta";
+
+  article.labels.forEach(label=>{
+   const tag=document.createElement("span");
+   tag.className="tag";
+   tag.textContent=label;
+   meta.appendChild(tag);
+  });
+
+  const count=document.createElement("span");
+  count.className="tag";
+  count.textContent=article.questions.length
+   ? article.questions.length+" MCQs"
+   : "Questions not detected";
+  meta.appendChild(count);
+  card.appendChild(meta);
+
+  const description=document.createElement("p");
+  description.textContent=article.questions.length
+   ? "Practice interactive questions with explanations."
+   : "Open the original Blogger article.";
+  card.appendChild(description);
+
+  const button=document.createElement("button");
+  button.className=article.questions.length
+   ? "primary" : "secondary";
+
+  button.textContent=article.questions.length
+   ? "Start Practice →" : "Open Article →";
+
+  button.addEventListener("click",()=>{
+   if(article.questions.length){
+    startQuiz(article);
+   }else{
+    window.open(article.url,"_blank","noopener");
+   }
+  });
+
+  card.appendChild(button);
+  container.appendChild(card);
+ });
 }
+
+/* ================= LIBRARY ================= */
+
+function renderLibrary(){
+ const categories=new Set(["All"]);
+
+ articles.forEach(article=>{
+  article.labels.forEach(label=>categories.add(label));
+ });
+
+ const categoryBox=document.getElementById("categories");
+ categoryBox.innerHTML="";
+
+ categories.forEach(category=>{
+  const button=document.createElement("button");
+  button.className="secondary";
+  button.style.margin="0 5px 9px 0";
+  button.textContent=category;
+
+  if(selectedCategory===category){
+   button.style.background="var(--teal)";
+   button.style.color="white";
+  }
+
+  button.addEventListener("click",()=>{
+   selectedCategory=category;
+   renderLibrary();
+  });
+
+  categoryBox.appendChild(button);
+ });
+
+ applyLibraryFilter();
+}
+
+function applyLibraryFilter(){
+ const search=document.getElementById("search").value.toLowerCase();
+
+ const filtered=articles.filter(article=>{
+  const categoryMatch=selectedCategory==="All" ||
+   article.labels.includes(selectedCategory);
+
+  const searchMatch=article.title.toLowerCase().includes(search) ||
+   article.labels.join(" ").toLowerCase().includes(search);
+
+  return categoryMatch && searchMatch;
+ });
+
+ renderArticleList(
+  document.getElementById("library-articles"),
+  filtered
+ );
+}
+
+document.getElementById("search").addEventListener(
+ "input",applyLibraryFilter
+);
+
+/* ================= QUIZ ENGINE ================= */
 
 function showPage(name){
- ["home","library","progress","quiz"].forEach(page=>{
-  $(page+"Page").classList.toggle("hidden",page!==name);
+ document.querySelectorAll("main section").forEach(section=>{
+  section.classList.add("hidden");
  });
 
- document.querySelectorAll("[data-page]").forEach(button=>{
-  button.classList.toggle("active",button.dataset.page===name);
- });
+ const target=document.getElementById(name+"-page");
+ if(target)target.classList.remove("hidden");
 
- if(name==="progress")updateStats();
+ document.querySelectorAll("nav button").forEach(button=>{
+  button.classList.toggle(
+   "active",button.dataset.page===name
+  );
+ });
 }
 
-function startQuiz(post){
- currentSet=post;
+document.querySelectorAll("nav button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  showPage(button.dataset.page);
+ });
+});
+
+function startQuiz(article){
+ if(!article.questions.length)return;
+
+ currentArticle=article;
+ currentQuestions=article.questions;
  questionIndex=0;
- selected=null;
- checked=false;
- answers=[];
+ score=0;
+
+ document.getElementById("quiz-title").textContent=article.title;
+
  showPage("quiz");
  renderQuestion();
- beep("click");
 }
 
 function renderQuestion(){
- const q=currentSet.questions[questionIndex];
- const total=currentSet.questions.length;
+ answered=false;
 
- $("bar").style.width=(questionIndex/total*100)+"%";
- $("counter").textContent=`${questionIndex+1}/${total}`;
+ const q=currentQuestions[questionIndex];
+ const total=currentQuestions.length;
 
- const root=$("quizContent");
- root.innerHTML="";
+ document.getElementById("quiz-counter").textContent=
+  "Question "+(questionIndex+1)+" / "+total;
 
- const topic=document.createElement("span");
- topic.className="topic";
- topic.textContent=q.topic||"Clinical MCQ";
+ document.getElementById("quiz-progress").style.width=
+  (questionIndex/total*100)+"%";
 
- const question=document.createElement("div");
- question.className="question";
- question.textContent=q.q;
+ document.getElementById("question-text").textContent=q.q;
 
- const options=document.createElement("div");
- options.className="options";
+ const options=document.getElementById("options");
+ options.innerHTML="";
 
- q.o.forEach((answer,index)=>{
+ q.o.forEach((option,index)=>{
   const button=document.createElement("button");
   button.className="option";
-
-  if(selected===index)button.classList.add("selected");
-
-  if(checked&&index===q.a)button.classList.add("correct");
-  if(checked&&selected===index&&index!==q.a)button.classList.add("wrong");
 
   const letter=document.createElement("span");
   letter.className="letter";
   letter.textContent=String.fromCharCode(65+index);
 
   const text=document.createElement("span");
-  text.textContent=answer;
+  text.textContent=option;
 
-  button.append(letter,text);
-  button.disabled=checked;
+  button.appendChild(letter);
+  button.appendChild(text);
 
-  button.onclick=()=>{
-   selected=index;
-   beep("click");
-   renderQuestion();
-  };
+  button.addEventListener("click",()=>selectAnswer(index));
 
   options.appendChild(button);
  });
 
- root.append(topic,question,options);
+ const feedback=document.getElementById("feedback");
+ feedback.className="feedback";
+ document.getElementById("feedback-title").textContent="";
+ document.getElementById("explanation").textContent="";
+ document.getElementById("pearl").textContent="";
 
- if(checked){
-  const correct=selected===q.a;
+ document.getElementById("next-question").disabled=true;
+ document.getElementById("next-question").textContent=
+  questionIndex===total-1 ? "Finish lesson" : "Continue →";
 
-  const feedback=document.createElement("div");
-  feedback.className="feedback "+(correct?"good":"bad");
-
-  const heading=document.createElement("h3");
-  heading.textContent=correct?"✓ Correct!":"✕ Incorrect";
-
-  const explanation=document.createElement("p");
-  explanation.textContent=q.e||"Review the correct answer.";
-
-  feedback.append(heading,explanation);
-
-  if(q.p){
-   const pearl=document.createElement("div");
-   pearl.className="pearl";
-
-   const label=document.createElement("b");
-   label.textContent="💡 Clinical Pearl";
-
-   const text=document.createElement("p");
-   text.textContent=q.p;
-
-   pearl.append(label,text);
-   feedback.appendChild(pearl);
-  }
-
-  root.appendChild(feedback);
- }
-
- const actions=document.createElement("div");
- actions.className="actions";
-
- if(!checked){
-  const check=document.createElement("button");
-  check.className="primary";
-  check.textContent="Check answer";
-  check.disabled=selected===null;
-  check.onclick=checkAnswer;
-  actions.appendChild(document.createElement("span"));
-  actions.appendChild(check);
- }else{
-  const next=document.createElement("button");
-  next.className="primary";
-  next.textContent=questionIndex===total-1?"Finish session":"Continue →";
-  next.onclick=nextQuestion;
-  actions.appendChild(next);
- }
-
- root.appendChild(actions);
+ document.getElementById("quiz-score").textContent=
+  "Score: "+score;
 }
 
-function checkAnswer(){
- if(selected===null)return;
+function selectAnswer(index){
+ if(answered)return;
+ answered=true;
 
- checked=true;
+ const q=currentQuestions[questionIndex];
+ const correct=index===q.a;
 
- const q=currentSet.questions[questionIndex];
- const correct=selected===q.a;
+ const buttons=document.querySelectorAll("#options .option");
 
- progress.answered++;
+ buttons.forEach((button,i)=>{
+  button.disabled=true;
+
+  if(i===q.a)button.classList.add("correct");
+  else if(i===index)button.classList.add("wrong");
+ });
+
+ const feedback=document.getElementById("feedback");
+
+ feedback.className="feedback show "+(correct?"good":"bad");
+
+ document.getElementById("feedback-title").textContent=
+  correct ? "✓ Correct answer!" : "✗ Incorrect answer";
+
+ document.getElementById("explanation").innerHTML="";
+
+ const answer=document.createElement("p");
+ answer.innerHTML="<strong>Correct answer: "+
+  String.fromCharCode(65+q.a)+". </strong>";
+
+ answer.appendChild(document.createTextNode(q.o[q.a]));
+ document.getElementById("explanation").appendChild(answer);
+
+ const explanation=document.createElement("p");
+ explanation.textContent=q.e;
+ document.getElementById("explanation").appendChild(explanation);
+
+ const pearl=document.getElementById("pearl");
+ pearl.innerHTML="<strong>Clinical Pearl:</strong> ";
+ pearl.appendChild(document.createTextNode(q.p));
 
  if(correct){
-  progress.xp+=10;
-  beep("correct");
- }else{
-  beep("wrong");
+  score++;
+  userData.xp+=10;
+  userData.correct++;
+  recordActivity();
+  saveProgress();
  }
 
- answers.push(correct);
- saveProgress();
- renderQuestion();
+ document.getElementById("quiz-score").textContent=
+  "Score: "+score;
+
+ document.getElementById("next-question").disabled=false;
 }
 
 function nextQuestion(){
- if(questionIndex<currentSet.questions.length-1){
+ if(!answered)return;
+
+ if(questionIndex<currentQuestions.length-1){
   questionIndex++;
-  selected=null;
-  checked=false;
   renderQuestion();
-  beep("next");
- }else finishQuiz();
+ }else{
+  finishQuiz();
+ }
 }
 
 function finishQuiz(){
- const total=answers.length;
- const correct=answers.filter(Boolean).length;
+ const total=currentQuestions.length;
+ const percentage=Math.round(score/total*100);
 
- const today=new Date().toISOString().slice(0,10);
+ const key=currentArticle.url;
 
- if(progress.lastDay!==today){
-  const yesterday=new Date(Date.now()-86400000)
-   .toISOString().slice(0,10);
-
-  progress.streak=
-   progress.lastDay===yesterday?progress.streak+1:1;
-
-  progress.lastDay=today;
+ if(!userData.completed.includes(key)){
+  userData.completed.push(key);
  }
 
  saveProgress();
 
- $("bar").style.width="100%";
- $("counter").textContent="Completed";
+ showPage("result");
 
- $("quizContent").innerHTML=`
-  <div class="empty">
-   <div class="empty-icon">🏆</div>
-   <h2>Session complete!</h2>
-   <p>You answered <b>${correct} / ${total}</b> correctly.</p>
-   <p>Accuracy: <b>${Math.round(correct/total*100)}%</b></p>
-   <button class="primary" id="homeButton">Back to learning</button>
-   <button class="secondary" id="retryButton">Try again</button>
-  </div>`;
+ document.getElementById("final-score").textContent=
+  score+" / "+total;
 
- $("homeButton").onclick=()=>showPage("home");
- $("retryButton").onclick=()=>startQuiz(currentSet);
-
- beep("complete");
+ document.getElementById("final-message").textContent=
+  percentage>=85
+   ? "Excellent work! Your clinical knowledge is improving."
+   : percentage>=70
+   ? "Very good. Review the explanations and keep practising."
+   : percentage>=50
+   ? "Good effort. Keep revising and try again."
+   : "Keep learning. Revisit the explanations and repeat the lesson.";
 }
 
-document.querySelectorAll("[data-page]").forEach(button=>{
- button.onclick=()=>showPage(button.dataset.page);
-});
+document.getElementById("next-question").addEventListener(
+ "click",nextQuestion
+);
 
-$("search").addEventListener("input",()=>{
- renderCourses(posts.filter(p=>p.questions));
-});
+document.getElementById("back-library").addEventListener(
+ "click",()=>showPage("library")
+);
 
-$("refresh").onclick=loadBlogger;
-$("exit").onclick=()=>showPage("home");
+document.getElementById("retry").addEventListener(
+ "click",()=>startQuiz(currentArticle)
+);
 
-$("sound").onclick=()=>{
- soundOn=!soundOn;
- $("sound").textContent=soundOn?"🔊":"🔇";
-};
+document.getElementById("result-library").addEventListener(
+ "click",()=>showPage("library")
+);
 
-$("year").textContent=new Date().getFullYear();
+/* ================= INITIALIZATION ================= */
+
+document.getElementById("refresh").addEventListener(
+ "click",loadFeed
+);
 
 updateStats();
-loadBlogger();
+loadFeed();
 
 if("serviceWorker" in navigator){
  window.addEventListener("load",()=>{
   navigator.serviceWorker.register("./service-worker.js")
-   .catch(error=>console.warn("SW:",error));
+   .catch(error=>console.warn("SW registration:",error));
  });
 }
-
-})();
 </script>
+
 </body>
 </html>
