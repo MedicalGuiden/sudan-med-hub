@@ -14,7 +14,9 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-PQJ16K7E2K');
+gtag('config', 'G-PQJ16K7E2K', {
+  send_page_view: true
+});
 </script>
 
 <style>
@@ -206,6 +208,7 @@ footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
 const BLOG_ID = "8386237347151322294";
 const BLOG_URL = "https://sudanmedic.blogspot.com";
 const FEED_URL = `https://www.blogger.com/feeds/${BLOG_ID}/posts/default`;
+const GA_MEASUREMENT_ID = "G-PQJ16K7E2K";
 
 const CATEGORY_ORDER = [
   "Medicine","Surgery","Pediatrics","Psychiatry",
@@ -233,7 +236,10 @@ let progress = loadProgress();
 ========================================== */
 
 function trackEvent(eventName, parameters = {}) {
-  if (typeof window.gtag !== "function") return;
+  if (typeof window.gtag !== "function") {
+    console.warn("Google Analytics is not loaded yet:", eventName);
+    return;
+  }
 
   window.gtag("event", eventName, {
     app_name: "Sudan Med Hub",
@@ -308,7 +314,7 @@ function showTab(tab){
   document.getElementById(tab).classList.add("active");
   document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
 
-  trackEvent("section_view", {
+  trackEvent("app_section_opened", {
     section_name: tab
   });
 
@@ -649,6 +655,8 @@ async function init(){
     });
 
   }catch(error){
+    console.error("Blogger loading error:",error);
+
     document.getElementById("articlesList").innerHTML=
       '<div class="error">Unable to load articles. Please check your internet connection and try again.</div>';
 
@@ -752,7 +760,7 @@ function renderArticles(){
     card.append(title,meta,desc,tags);
 
     card.onclick=()=>{
-      trackEvent("article_open",{
+      trackEvent("article_opened",{
         article_title:post.title,
         article_category:post.labels.join(",")
       });
@@ -816,7 +824,7 @@ function startLesson(post){
   currentCorrect=0;
   currentLessonTitle=post.title;
 
-  trackEvent("lesson_start",{
+  trackEvent("lesson_started",{
     lesson_title:post.title,
     question_count:post.questions.length
   });
