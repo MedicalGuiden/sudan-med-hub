@@ -1,44 +1,93 @@
+const CACHE_NAME = "smh-shell-v3";
 
-const CACHE_NAME = "sudan-med-hub-v1";
-
-const FILES = [
+const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.json"
 ];
 
+// Install
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(APP_SHELL);
+    })
   );
+
   self.skipWaiting();
 });
 
+// Activate
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
         keys
-          .filter(key => key !== CACHE_NAME)
+          .filter(key => key.startsWith("smh-shell-") && key !== CACHE_NAME)
           .map(key => caches.delete(key))
       )
     )
   );
+
   self.clients.claim();
 });
 
+// Fetch
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+  const request = event.request;
 
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+
+  // Do not cache Blogger feeds
+  if (
+    url.hostname === "sudanmedic.blogspot.com" &&
+    url.pathname.includes("/feeds/")
+  ) {
+    return;
+  }
+
+  // Handle only same-origin files
+  if (url.origin !== self.location.origin) return;
+
+  // Navigation: network first
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response.ok) {
+            const copy = response.clone();
+
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put("./index.html", copy);
+            });
+          }
+
+          return response;
+        })
+        .catch(() => caches.match("./index.html"))
+    );
+
+    return;
+  }
+
+  // Static files: cache first
   event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        if (response.ok && new URL(event.request.url).origin === self.location.origin) {
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+
+      return fetch(request).then(response => {
+        if (response.ok) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, copy);
+          });
         }
+
         return response;
-      })
-      .catch(() => caches.match(event.request))
+      });
+    })
   );
 });
