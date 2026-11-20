@@ -5,162 +5,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f9fc">
+<meta name="description" content="Sudan Med Hub - Medical learning, clinical knowledge and interactive medical MCQs.">
 <title>Sudan Med Hub</title>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQJ16K7E2K"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PQJ16K7E2K');
+</script>
+
 <style>
 :root{
-  --green:#58cc02;
-  --green-dark:#46a302;
-  --blue:#1cb0f6;
-  --red:#ff4b4b;
-  --yellow:#ffc800;
-  --ink:#263238;
-  --muted:#77838f;
-  --bg:#f7f9fc;
-  --card:#fff;
-  --line:#e5eaf0;
-  --shadow:0 3px 0 #e3e8ee;
+  --green:#58cc02;--green-dark:#46a302;--blue:#1cb0f6;
+  --red:#ff4b4b;--yellow:#ffc800;--ink:#263238;
+  --muted:#77838f;--bg:#f7f9fc;--card:#fff;
+  --line:#e5eaf0;--shadow:0 3px 0 #e3e8ee;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif;
-}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 button{font:inherit;cursor:pointer}
 button:disabled{cursor:not-allowed;opacity:.65}
 .app{max-width:850px;margin:auto;min-height:100vh;padding:18px 15px 100px}
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin-bottom:20px;
-}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
 .brand{display:flex;align-items:center;gap:11px}
-.logo{
-  width:45px;height:45px;border-radius:14px;
-  background:#e9f9dc;display:grid;place-items:center;
-  font-size:25px;
-}
+.logo{width:45px;height:45px;border-radius:14px;background:#e9f9dc;display:grid;place-items:center;font-size:25px}
 .brand h1{font-size:20px;margin:0 0 4px;font-weight:900}
 .brand p{font-size:12px;color:var(--muted);margin:0}
-.sound-btn{
-  border:1px solid var(--line);background:white;border-radius:12px;
-  padding:10px 12px;font-weight:bold;color:var(--ink);
-}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:10px;margin:15px 0 20px;
-}
-.stat{
-  background:white;border:1px solid var(--line);
-  border-radius:15px;padding:13px 8px;text-align:center;
-}
+.sound-btn{border:1px solid var(--line);background:white;border-radius:12px;padding:10px 12px;font-weight:bold;color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0 20px}
+.stat{background:white;border:1px solid var(--line);border-radius:15px;padding:13px 8px;text-align:center}
 .stat strong{display:block;font-size:20px;margin-bottom:4px}
 .stat span{font-size:11px;color:var(--muted)}
-.tabs{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:8px;margin:20px 0;
-}
-.tab{
-  border:1px solid var(--line);background:white;
-  border-radius:13px;padding:13px 5px;font-weight:800;
-  color:#687582;box-shadow:var(--shadow);
-}
-.tab.active{
-  background:#eaf8df;border-color:#b9e69a;color:#398b00;
-  box-shadow:0 3px 0 #b9e69a;
-}
-.panel{display:none}
-.panel.active{display:block}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
+.tab{border:1px solid var(--line);background:white;border-radius:13px;padding:13px 5px;font-weight:800;color:#687582;box-shadow:var(--shadow)}
+.tab.active{background:#eaf8df;border-color:#b9e69a;color:#398b00;box-shadow:0 3px 0 #b9e69a}
+.panel{display:none}.panel.active{display:block}
 .section-title{font-size:22px;font-weight:900;margin:12px 0 6px}
 .section-sub{font-size:13px;color:var(--muted);margin:0 0 18px;line-height:1.6}
-.category-list{
-  display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;
-}
-.chip{
-  border:1px solid var(--line);background:white;color:#52616e;
-  padding:9px 13px;border-radius:30px;font-size:13px;font-weight:800;
-}
+.category-list{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+.chip{border:1px solid var(--line);background:white;color:#52616e;padding:9px 13px;border-radius:30px;font-size:13px;font-weight:800}
 .chip.active{background:#e9f9dc;border-color:#9bdb6c;color:#398b00}
-.article-card,.lesson-card,.quiz-card,.progress-card{
-  background:white;border:1px solid var(--line);border-radius:17px;
-  padding:16px;margin:12px 0;box-shadow:var(--shadow);
-}
-.article-card{cursor:pointer;transition:.15s}
-.article-card:active{transform:translateY(2px)}
+.article-card,.lesson-card,.quiz-card,.progress-card{background:white;border:1px solid var(--line);border-radius:17px;padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.article-card{cursor:pointer;transition:.15s}.article-card:active{transform:translateY(2px)}
 .article-title{font-size:16px;font-weight:900;line-height:1.45;margin-bottom:8px}
 .article-meta{font-size:11px;color:var(--muted);margin:8px 0}
 .article-desc{font-size:13px;color:#63717d;line-height:1.6}
-.tag{
-  display:inline-block;background:#eef6ff;color:#2879ae;
-  border-radius:7px;padding:5px 8px;font-size:10px;
-  font-weight:800;margin:3px 4px 3px 0;
-}
-.primary{
-  background:var(--green);color:white;border:0;
-  border-radius:13px;padding:14px 18px;font-weight:900;
-  box-shadow:0 4px 0 var(--green-dark);
-}
+.tag{display:inline-block;background:#eef6ff;color:#2879ae;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:800;margin:3px 4px 3px 0}
+.primary{background:var(--green);color:white;border:0;border-radius:13px;padding:14px 18px;font-weight:900;box-shadow:0 4px 0 var(--green-dark)}
 .primary:active{transform:translateY(3px);box-shadow:none}
-.secondary{
-  background:white;color:#65727e;border:1px solid var(--line);
-  border-radius:12px;padding:11px 15px;font-weight:800;
-}
+.secondary{background:white;color:#65727e;border:1px solid var(--line);border-radius:12px;padding:11px 15px;font-weight:800}
 .full{width:100%}
 .lesson-card{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.lesson-info{flex:1}
-.lesson-info h3{font-size:15px;line-height:1.45;margin:0 0 7px}
+.lesson-info{flex:1}.lesson-info h3{font-size:15px;line-height:1.45;margin:0 0 7px}
 .lesson-info p{font-size:12px;color:var(--muted);margin:0}
-.lesson-icon{
-  width:45px;height:45px;border-radius:13px;
-  display:grid;place-items:center;background:#eaf8df;font-size:23px;
-}
-.empty{
-  background:white;border:1px dashed #ccd5de;border-radius:15px;
-  padding:25px;text-align:center;color:var(--muted);line-height:1.7;
-}
+.lesson-icon{width:45px;height:45px;border-radius:13px;display:grid;place-items:center;background:#eaf8df;font-size:23px}
+.empty{background:white;border:1px dashed #ccd5de;border-radius:15px;padding:25px;text-align:center;color:var(--muted);line-height:1.7}
 .loading{text-align:center;padding:30px;color:var(--muted)}
 .error{color:#c53b3b;background:#fff0f0;padding:13px;border-radius:12px;font-size:13px}
 .quiz-top{display:flex;align-items:center;gap:10px;margin:12px 0 18px}
 .progress-track{height:12px;background:#e5eaf0;border-radius:20px;flex:1;overflow:hidden}
 .progress-fill{height:100%;width:0;background:var(--green);border-radius:20px;transition:.3s}
 .quiz-count{font-size:12px;color:var(--muted);font-weight:800;white-space:nowrap}
-.topic-label{
-  display:inline-block;background:#eaf8df;color:#398b00;
-  padding:6px 10px;border-radius:8px;font-size:11px;font-weight:900;
-  margin-bottom:12px;
-}
-.question{
-  font-size:20px;font-weight:900;line-height:1.55;margin:5px 0 20px;
-}
-.option{
-  display:flex;align-items:center;gap:12px;width:100%;
-  background:white;border:2px solid var(--line);
-  border-radius:14px;padding:13px;margin:10px 0;
-  text-align:left;color:var(--ink);font-size:14px;font-weight:700;
-  line-height:1.5;transition:.15s;
-}
-.option-letter{
-  width:30px;height:30px;flex:0 0 30px;border-radius:9px;
-  background:#f0f3f6;display:grid;place-items:center;font-weight:900;
-}
+.topic-label{display:inline-block;background:#eaf8df;color:#398b00;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:900;margin-bottom:12px}
+.question{font-size:20px;font-weight:900;line-height:1.55;margin:5px 0 20px}
+.option{display:flex;align-items:center;gap:12px;width:100%;background:white;border:2px solid var(--line);border-radius:14px;padding:13px;margin:10px 0;text-align:left;color:var(--ink);font-size:14px;font-weight:700;line-height:1.5;transition:.15s}
+.option-letter{width:30px;height:30px;flex:0 0 30px;border-radius:9px;background:#f0f3f6;display:grid;place-items:center;font-weight:900}
 .option.correct{border-color:var(--green);background:#efffe6;color:#347c00}
 .option.correct .option-letter{background:var(--green);color:white}
 .option.wrong{border-color:var(--red);background:#fff0f0;color:#c52d2d}
 .option.wrong .option-letter{background:var(--red);color:white}
 .option:disabled{opacity:1}
-.feedback{
-  display:none;border-radius:15px;padding:16px;margin:18px 0;
-  animation:pop .2s ease;
-}
-.feedback.show{display:block}
-.feedback.good{background:#edffdf;border:1px solid #b7e99a}
+.feedback{display:none;border-radius:15px;padding:16px;margin:18px 0;animation:pop .2s ease}
+.feedback.show{display:block}.feedback.good{background:#edffdf;border:1px solid #b7e99a}
 .feedback.bad{background:#fff0f0;border:1px solid #ffcaca}
 .feedback h3{margin:0 0 8px;font-size:19px}
 .feedback p{font-size:13px;line-height:1.7;margin:8px 0}
-.feedback .pearl{
-  background:#fff;border-radius:10px;padding:11px;
-  color:#52616e;font-size:13px;line-height:1.6;
-}
+.feedback .pearl{background:#fff;border-radius:10px;padding:11px;color:#52616e;font-size:13px;line-height:1.6}
 .feedback .pearl strong{color:#398b00}
 .next-wrap{margin:18px 0}
 .quiz-actions{display:flex;gap:9px;justify-content:space-between;margin:12px 0}
@@ -169,15 +92,9 @@ header{
 .result-emoji{font-size:65px;margin:10px}
 .result h2{font-size:25px;margin:10px}
 .result p{color:var(--muted);line-height:1.6}
-.result-score{
-  background:#f2f8ed;border-radius:15px;padding:15px;
-  margin:18px 0;font-weight:800;
-}
+.result-score{background:#f2f8ed;border-radius:15px;padding:15px;margin:18px 0;font-weight:800}
 .progress-card h3{margin:0 0 15px}
-.progress-row{
-  display:flex;justify-content:space-between;gap:10px;
-  padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;
-}
+.progress-row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
 .progress-row:last-child{border:0}
 .notice{font-size:12px;color:var(--muted);line-height:1.6;margin:16px 0}
 footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
@@ -217,11 +134,9 @@ footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
   <button class="tab" data-tab="progress" onclick="showTab('progress')">🏆 Progress</button>
 </nav>
 
-<!-- MCQs -->
 <section class="panel active" id="learn">
   <div class="section-title">Let's learn! 🚀</div>
   <p class="section-sub">Choose a subject, answer one question at a time, and earn XP.</p>
-
   <div id="mcqCategories" class="category-list"></div>
   <div id="mcqList"><div class="loading">Loading your MCQs... ⏳</div></div>
 
@@ -250,7 +165,6 @@ footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
   </div>
 </section>
 
-<!-- Reading -->
 <section class="panel" id="read">
   <div class="section-title">Medical Library 📖</div>
   <p class="section-sub">Explore medical articles directly from Sudan Med Hub.</p>
@@ -258,7 +172,6 @@ footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
   <div id="articlesList"><div class="loading">Loading articles... ⏳</div></div>
 </section>
 
-<!-- Progress -->
 <section class="panel" id="progress">
   <div class="section-title">Your achievements 🏆</div>
   <p class="section-sub">Every question brings you one step forward.</p>
@@ -287,7 +200,7 @@ footer{text-align:center;font-size:11px;color:#9aa4ad;margin:30px 0}
 <script>
 /* ==========================================
    SUDAN MED HUB
-   Blogger is the content source.
+   Blogger content + GA4 analytics
 ========================================== */
 
 const BLOG_ID = "8386237347151322294";
@@ -313,11 +226,22 @@ let currentAnswered = false;
 let currentLessonTitle = "";
 let soundEnabled = true;
 let audioContext = null;
-
 let progress = loadProgress();
 
-/* Preserve the currently displayed progress as a starting point
-   if this new version has not yet saved its own progress. */
+/* ==========================================
+   GOOGLE ANALYTICS EVENT TRACKING
+========================================== */
+
+function trackEvent(eventName, parameters = {}) {
+  if (typeof window.gtag !== "function") return;
+
+  window.gtag("event", eventName, {
+    app_name: "Sudan Med Hub",
+    ...parameters
+  });
+}
+
+/* Progress storage */
 function loadProgress(){
   try{
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -383,10 +307,15 @@ function showTab(tab){
   document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
   document.getElementById(tab).classList.add("active");
   document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
+
+  trackEvent("section_view", {
+    section_name: tab
+  });
+
   if(tab==="progress")updateStats();
 }
 
-/* Sound effects using Web Audio API */
+/* Sound effects */
 function getAudio(){
   try{
     if(!audioContext){
@@ -408,9 +337,7 @@ function playTone(frequency,duration,type="sine",volume=0.08,delay=0){
   oscillator.type=type;
   oscillator.frequency.setValueAtTime(frequency,ctx.currentTime+delay);
   gain.gain.setValueAtTime(volume,ctx.currentTime+delay);
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,ctx.currentTime+delay+duration
-  );
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+delay+duration);
   oscillator.connect(gain);
   gain.connect(ctx.destination);
   oscillator.start(ctx.currentTime+delay);
@@ -440,11 +367,10 @@ function toggleSound(){
   const label=soundEnabled?"🔊 Sound ON":"🔇 Sound OFF";
   document.getElementById("soundToggle").textContent=label;
   const quizSound=document.getElementById("quizSound");
-  if(quizSound)quizSound.textContent=soundEnabled?"🔊 Sound ON":"🔇 Sound OFF";
+  if(quizSound)quizSound.textContent=label;
   if(soundEnabled)playTone(600,0.1);
 }
 
-/* Small phone vibration */
 function vibrate(pattern){
   try{if(navigator.vibrate)navigator.vibrate(pattern);}catch(e){}
 }
@@ -461,7 +387,8 @@ function loadBloggerFeed(){
 
     function cleanup(){
       clearTimeout(timeout);
-      try{delete window[callback];}catch(e){window[callback]=undefined;}
+      try{delete window[callback];}
+      catch(e){window[callback]=undefined;}
       script.remove();
     }
 
@@ -516,12 +443,7 @@ function normalizePost(entry){
   };
 }
 
-/* ==========================================
-   Safe parser for questions=[ ... ]
-   Supports JS object literals, arrays and
-   single/double quoted strings.
-========================================== */
-
+/* Question parser */
 function findQuestionsArray(source){
   const match=/\b(?:const|let|var)\s+questions\s*=\s*/.exec(source);
   if(!match)return null;
@@ -542,9 +464,7 @@ function findQuestionsArray(source){
       continue;
     }
 
-    if(ch==="'"||ch==='"'||ch==="`"){
-      quote=ch;continue;
-    }
+    if(ch==="'"||ch==='"'||ch==="`"){quote=ch;continue;}
     if(ch==="[")depth++;
     if(ch==="]"){
       depth--;
@@ -571,10 +491,8 @@ function parseJSValue(source){
       if(ch==="\\"){
         if(i>=source.length)break;
         const next=source[i++];
-        const map={
-          "n":"\n","r":"\r","t":"\t","b":"\b",
-          "f":"\f","v":"\v","0":"\0"
-        };
+        const map={"n":"\n","r":"\r","t":"\t","b":"\b","f":"\f","v":"\v","0":"\0"};
+
         if(next==="u"){
           const hex=source.slice(i,i+4);
           if(/^[0-9a-fA-F]{4}$/.test(hex)){
@@ -669,7 +587,7 @@ function extractQuestions(post){
       const options=Array.isArray(q.o)?q.o:
         Array.isArray(q.options)?q.options:[];
 
-      let answer=Number(q.a??q.answer??q.correctAnswer);
+      const answer=Number(q.a??q.answer??q.correctAnswer);
 
       return {
         topic:String(q.topic||q.category||"General"),
@@ -690,9 +608,11 @@ function extractQuestions(post){
   }
 }
 
-/* Load all Blogger posts */
+/* Load Blogger posts */
 async function init(){
   updateStats();
+
+  trackEvent("app_open");
 
   try{
     const data=await loadBloggerFeed();
@@ -706,10 +626,7 @@ async function init(){
 
     mcqPosts=allPosts
       .filter(post=>post.labels.some(label=>label.toLowerCase()==="mcqs"))
-      .map(post=>({
-        ...post,
-        questions:extractQuestions(post)
-      }))
+      .map(post=>({...post,questions:extractQuestions(post)}))
       .filter(post=>post.questions.length>0);
 
     renderReadingCategories();
@@ -718,21 +635,31 @@ async function init(){
     renderLessons();
 
     const total=mcqPosts.reduce((sum,p)=>sum+p.questions.length,0);
+
     console.log("Sudan Med Hub connected:",{
       articles:readingPosts.length,
       mcqArticles:mcqPosts.length,
       questions:total
     });
 
+    trackEvent("content_loaded",{
+      article_count:readingPosts.length,
+      mcq_article_count:mcqPosts.length,
+      available_questions:total
+    });
+
   }catch(error){
     document.getElementById("articlesList").innerHTML=
       '<div class="error">Unable to load articles. Please check your internet connection and try again.</div>';
+
     document.getElementById("mcqList").innerHTML=
       '<div class="error">Unable to connect to Blogger. Please refresh the page.</div>';
+
+    trackEvent("content_load_error");
   }
 }
 
-/* Category handling */
+/* Categories */
 function availableCategories(posts){
   const found=new Set();
   posts.forEach(post=>post.labels.forEach(label=>{
@@ -749,6 +676,7 @@ function renderCategoryButtons(containerId,posts,selected,onSelect){
   const categories=availableCategories(posts);
 
   container.innerHTML="";
+
   const allButton=document.createElement("button");
   allButton.className="chip"+(selected==="All"?" active":"");
   allButton.textContent="All";
@@ -765,25 +693,21 @@ function renderCategoryButtons(containerId,posts,selected,onSelect){
 }
 
 function renderReadingCategories(){
-  renderCategoryButtons(
-    "readCategories",readingPosts,selectedReadCategory,
-    category=>{
-      selectedReadCategory=category;
-      renderReadingCategories();
-      renderArticles();
-    }
-  );
+  renderCategoryButtons("readCategories",readingPosts,selectedReadCategory,category=>{
+    selectedReadCategory=category;
+    renderReadingCategories();
+    renderArticles();
+    trackEvent("category_select",{section_name:"read",category_name:category});
+  });
 }
 
 function renderMcqCategories(){
-  renderCategoryButtons(
-    "mcqCategories",mcqPosts,selectedMcqCategory,
-    category=>{
-      selectedMcqCategory=category;
-      renderMcqCategories();
-      renderLessons();
-    }
-  );
+  renderCategoryButtons("mcqCategories",mcqPosts,selectedMcqCategory,category=>{
+    selectedMcqCategory=category;
+    renderMcqCategories();
+    renderLessons();
+    trackEvent("category_select",{section_name:"mcqs",category_name:category});
+  });
 }
 
 /* Reading library */
@@ -791,8 +715,7 @@ function renderArticles(){
   const container=document.getElementById("articlesList");
 
   const posts=readingPosts.filter(post=>
-    selectedReadCategory==="All"||
-    post.labels.includes(selectedReadCategory)
+    selectedReadCategory==="All"||post.labels.includes(selectedReadCategory)
   );
 
   if(!posts.length){
@@ -827,12 +750,20 @@ function renderArticles(){
     });
 
     card.append(title,meta,desc,tags);
-    card.onclick=()=>window.open(post.url,"_blank","noopener");
+
+    card.onclick=()=>{
+      trackEvent("article_open",{
+        article_title:post.title,
+        article_category:post.labels.join(",")
+      });
+      window.open(post.url,"_blank","noopener");
+    };
+
     container.appendChild(card);
   });
 }
 
-/* MCQ lesson list */
+/* MCQ lessons */
 function renderLessons(){
   const container=document.getElementById("mcqList");
   container.style.display="block";
@@ -840,8 +771,7 @@ function renderLessons(){
   container.innerHTML="";
 
   const posts=mcqPosts.filter(post=>
-    selectedMcqCategory==="All"||
-    post.labels.includes(selectedMcqCategory)
+    selectedMcqCategory==="All"||post.labels.includes(selectedMcqCategory)
   );
 
   if(!posts.length){
@@ -861,8 +791,7 @@ function renderLessons(){
 
     const detail=document.createElement("p");
     const category=post.labels.filter(x=>x.toLowerCase()!=="mcqs").join(" • ");
-    detail.textContent=
-      `${post.questions.length} questions`+(category?" • "+category:"");
+    detail.textContent=`${post.questions.length} questions`+(category?" • "+category:"");
 
     info.append(title,detail);
 
@@ -886,6 +815,11 @@ function startLesson(post){
   currentQuestionIndex=0;
   currentCorrect=0;
   currentLessonTitle=post.title;
+
+  trackEvent("lesson_start",{
+    lesson_title:post.title,
+    question_count:post.questions.length
+  });
 
   document.getElementById("mcqList").style.display="none";
   document.getElementById("quizArea").style.display="block";
@@ -947,6 +881,13 @@ function chooseAnswer(selected){
   const buttons=[...document.querySelectorAll(".option")];
   const isCorrect=selected===q.a;
 
+  trackEvent("question_answered",{
+    lesson_title:currentLessonTitle,
+    question_number:currentQuestionIndex+1,
+    is_correct:isCorrect,
+    topic:q.topic
+  });
+
   buttons.forEach((button,index)=>{
     button.disabled=true;
     if(index===q.a)button.classList.add("correct");
@@ -998,15 +939,19 @@ function chooseAnswer(selected){
 
   const explanationTitle=document.createElement("strong");
   explanationTitle.textContent="Explanation: ";
+
   const explanationContent=document.createElement("span");
   explanationContent.textContent=q.e||"Review this question and its correct answer.";
+
   pearl.append(explanationTitle,explanationContent);
 
   if(q.p){
     const pearlBox=document.createElement("p");
     pearlBox.style.margin="10px 0 0";
+
     const label=document.createElement("strong");
     label.textContent="💡 Clinical Pearl: ";
+
     pearlBox.append(label,document.createTextNode(q.p));
     pearl.appendChild(pearlBox);
   }
@@ -1016,7 +961,6 @@ function chooseAnswer(selected){
       ?"See Results 🏆":"Continue ➜";
 
   document.getElementById("nextWrap").style.display="block";
-
   saveProgress();
 }
 
@@ -1037,6 +981,14 @@ function showResults(){
     currentQuestions.length+"/"+currentQuestions.length;
 
   const percentage=Math.round(currentCorrect/currentQuestions.length*100);
+
+  trackEvent("lesson_complete",{
+    lesson_title:currentLessonTitle,
+    total_questions:currentQuestions.length,
+    correct_answers:currentCorrect,
+    score_percentage:percentage
+  });
+
   let emoji="💪",message="Keep practicing. Every attempt makes you better!";
 
   if(percentage>=90){
@@ -1070,27 +1022,7 @@ function showResults(){
   `;
 }
 
-function restartLesson(){
-  const post=mcqPosts.find(p=>p.title===currentLessonTitle);
-  if(post){
-    document.querySelector("#quizArea .quiz-card").innerHTML=`
-      <div class="topic-label" id="questionTopic"></div>
-      <div class="question" id="questionText"></div>
-      <div id="optionsArea"></div>
-      <div class="feedback" id="feedback">
-        <h3 id="feedbackTitle"></h3>
-        <p id="feedbackText"></p>
-        <div class="pearl" id="pearlText"></div>
-      </div>
-      <div class="next-wrap" id="nextWrap" style="display:none">
-        <button class="primary full" id="nextButton" onclick="nextQuestion()">Continue ➜</button>
-      </div>
-    `;
-    startLesson(post);
-  }
-}
-
-function finishLesson(){
+function restoreQuizCard(){
   const card=document.querySelector("#quizArea .quiz-card");
   card.innerHTML=`
     <div class="topic-label" id="questionTopic"></div>
@@ -1105,6 +1037,18 @@ function finishLesson(){
       <button class="primary full" id="nextButton" onclick="nextQuestion()">Continue ➜</button>
     </div>
   `;
+}
+
+function restartLesson(){
+  const post=mcqPosts.find(p=>p.title===currentLessonTitle);
+  if(post){
+    restoreQuizCard();
+    startLesson(post);
+  }
+}
+
+function finishLesson(){
+  restoreQuizCard();
   backToLessons();
 }
 
@@ -1131,6 +1075,7 @@ function formatDate(date){
 /* Emoji celebration */
 function createEmojiBurst(emoji){
   const symbols=[emoji,"✨","⭐","💚"];
+
   for(let i=0;i<7;i++){
     const item=document.createElement("div");
     item.textContent=randomItem(symbols);
@@ -1152,7 +1097,7 @@ function createEmojiBurst(emoji){
   }
 }
 
-/* Start */
+/* Start app */
 init();
 </script>
 </body>
